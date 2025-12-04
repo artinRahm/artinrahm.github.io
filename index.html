@@ -22,6 +22,58 @@
             overflow: hidden;
             height: 100vh;
             position: relative;
+            transition: background 0.5s ease;
+        }
+
+        /* Black theme */
+        body.theme-black {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
+        }
+
+        body.theme-black .main-title,
+        body.theme-black .subtitle,
+        body.theme-black .bottom-item p {
+            color: #ffffff;
+        }
+
+        body.theme-black .mouse-trail-star {
+            background: #666666;
+        }
+
+        /* Green theme */
+        body.theme-green {
+            background: linear-gradient(135deg, #001a0d 0%, #0d4d2d 25%, #198754 50%, #0d4d2d 75%, #001a0d 100%);
+        }
+
+        body.theme-green .main-title {
+            color: #90ee90;
+        }
+
+        body.theme-green .subtitle,
+        body.theme-green .bottom-item p {
+            color: rgba(144, 238, 144, 0.9);
+        }
+
+        body.theme-green .mouse-trail-star {
+            background: #90ee90;
+        }
+
+        /* Red theme */
+        body.theme-red {
+            background: linear-gradient(135deg, #1a0000 0%, #4d0d0d 25%, #8b1a1a 50%, #4d0d0d 75%, #1a0000 100%);
+        }
+
+        body.theme-red .main-title {
+            color: #ffb3b3;
+        }
+
+        body.theme-red .subtitle,
+        body.theme-red .bottom-item p {
+            color: rgba(255, 179, 179, 0.9);
+        }
+
+        body.theme-red .mouse-trail-star {
+            background: #ff6b6b;
         }
 
         @keyframes gradientShift {
@@ -31,6 +83,16 @@
         }
 
         .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -244,6 +306,77 @@
         loading-game p {
             color: rgba(235, 218, 244, 0.8);
         }
+
+        .mouse-trail-star {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: #b19cd9;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            pointer-events: none;
+            z-index: 9999;
+            animation: fadeOutStar 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeOutStar {
+            0% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(180deg);
+            }
+        }
+
+        /* Theme variations */
+        body.theme-black {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
+        }
+
+        body.theme-black .main-title,
+        body.theme-black .subtitle,
+        body.theme-black .bottom-item p {
+            color: #ffffff;
+        }
+
+        body.theme-black .mouse-trail-star {
+            background: #ffffff;
+        }
+
+        body.theme-green {
+            background: linear-gradient(135deg, #001a0d 0%, #003d1f 25%, #006633 50%, #003d1f 75%, #001a0d 100%);
+        }
+
+        body.theme-green .main-title {
+            color: #90ee90;
+        }
+
+        body.theme-green .subtitle,
+        body.theme-green .bottom-item p {
+            color: rgba(144, 238, 144, 0.9);
+        }
+
+        body.theme-green .mouse-trail-star {
+            background: #90ee90;
+        }
+
+        body.theme-red {
+            background: linear-gradient(135deg, #1a0000 0%, #3d0000 25%, #660000 50%, #3d0000 75%, #1a0000 100%);
+        }
+
+        body.theme-red .main-title {
+            color: #ffcccc;
+        }
+
+        body.theme-red .subtitle,
+        body.theme-red .bottom-item p {
+            color: rgba(255, 204, 204, 0.9);
+        }
+
+        body.theme-red .mouse-trail-star {
+            background: #ff6666;
+        }
     </style>
 </head>
 <body>
@@ -257,6 +390,7 @@
         <p>please allow us to fetch the data first, this should only take a second.</p>
     </loading-game>
 
+    <canvas id="particle-canvas"></canvas>
     <div class="stars"></div>
 
     <div class="main-content">
@@ -314,13 +448,13 @@
             <div class="sidebar-item-descriptor">fullscreen</div>
         </div>
         <div class="sidebar-item">
-            <a href="#" data-target="/u/">
+            <a href="#" id="user-profile-link">
                 <img src="https://ext.same-assets.com/3317140723/2067000323.svg" alt="User Profile" width="24" height="24">
             </a>
             <div class="sidebar-item-descriptor">user profile</div>
         </div>
         <div class="sidebar-item">
-            <a href="#" data-target="/settings">
+            <a href="#" id="settings-link">
                 <img src="https://ext.same-assets.com/3317140723/1346388685.svg" alt="Settings" width="24" height="24">
             </a>
             <div class="sidebar-item-descriptor">settings</div>
@@ -368,6 +502,143 @@
                 starsContainer.appendChild(star);
             }
         }
+
+        // Theme management
+        let currentTheme = 'normal';
+        const themes = ['normal', 'black', 'green', 'red'];
+        const themeColors = {
+            normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217' },
+            black: { particle: 'rgba(255, 255, 255, 0.6)', line: '255, 255, 255' },
+            green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144' },
+            red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102' }
+        };
+
+        // Particle system with mouse interaction
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+        const connectionDistance = 150;
+        const particleCount = 80;
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Wrap around edges
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.fillStyle = themeColors[currentTheme].particle;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+
+                // Draw line to mouse if close enough
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - particle.x;
+                    const dy = mouse.y - particle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = 1 - (distance / connectionDistance);
+                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${opacity * 0.5})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            // Connect nearby particles to each other
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        const opacity = 1 - (distance / 100);
+                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${opacity * 0.2})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Mouse trail effect
+        let mouseTrailTimeout;
+        document.addEventListener('mousemove', function(e) {
+            // Update mouse position for particle system
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            // Throttle the trail creation
+            if (mouseTrailTimeout) return;
+
+            mouseTrailTimeout = setTimeout(function() {
+                mouseTrailTimeout = null;
+            }, 50);
+
+            // Create trail star
+            const star = document.createElement('div');
+            star.className = 'mouse-trail-star';
+            star.style.left = (e.clientX - 6) + 'px';
+            star.style.top = (e.clientY - 6) + 'px';
+
+            document.body.appendChild(star);
+
+            // Remove star after animation completes
+            setTimeout(function() {
+                star.remove();
+            }, 1500);
+        });
 
         // Update time
         function updateTime() {
@@ -438,8 +709,57 @@
             }
         }
 
+        // Open GitHub profile function
+        function openGitHubProfile() {
+            // Open GitHub profile link in a new tab
+            const githubUrl = 'https://github.com/artinRahm';
+            const newWindow = window.open(githubUrl, '_blank');
+
+            // Fallback if popup blocker prevents opening
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = githubUrl;
+            }
+        }
+
+        // Change theme function
+        function changeTheme() {
+            // Get current theme index
+            const currentIndex = themes.indexOf(currentTheme);
+            // Cycle to next theme
+            const nextIndex = (currentIndex + 1) % themes.length;
+            const nextTheme = themes[nextIndex];
+
+            // Remove current theme class
+            if (currentTheme !== 'normal') {
+                document.body.classList.remove('theme-' + currentTheme);
+            }
+
+            // Add new theme class
+            if (nextTheme !== 'normal') {
+                document.body.classList.add('theme-' + nextTheme);
+            }
+
+            // Update current theme
+            currentTheme = nextTheme;
+
+            // Save theme preference
+            localStorage.setItem('selectedTheme', currentTheme);
+        }
+
+        // Load saved theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme && themes.includes(savedTheme)) {
+                currentTheme = savedTheme;
+                if (currentTheme !== 'normal') {
+                    document.body.classList.add('theme-' + currentTheme);
+                }
+            }
+        }
+
         // Setup event listeners
         document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
             createStars();
             updateTime();
             updateOnlineCount();
@@ -502,6 +822,24 @@
                     } else {
                         document.exitFullscreen();
                     }
+                });
+            }
+
+            // User profile button (GitHub)
+            const userProfileLink = document.getElementById('user-profile-link');
+            if (userProfileLink) {
+                userProfileLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openGitHubProfile();
+                });
+            }
+
+            // Settings button (Theme switcher)
+            const settingsLink = document.getElementById('settings-link');
+            if (settingsLink) {
+                settingsLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    changeTheme();
                 });
             }
 
