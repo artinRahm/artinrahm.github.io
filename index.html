@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Site</title>
+    <title>clover!</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800&display=swap');
 
@@ -23,6 +23,12 @@
             height: 100vh;
             position: relative;
             transition: background 0.5s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Black theme */
@@ -76,10 +82,299 @@
             background: #ff6b6b;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Rambo theme */
+        body.theme-rambo {
+            background: linear-gradient(135deg, #0a0000 0%, #330000 25%, #660000 50%, #330000 75%, #0a0000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        body.theme-rambo .main-title {
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            animation: pulse 0.5s infinite;
+        }
+
+        body.theme-rambo .subtitle,
+        body.theme-rambo .bottom-item p {
+            color: rgba(255, 0, 0, 0.9);
+        }
+
+        body.theme-rambo .mouse-trail-star {
+            background: #ff0000;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+
+        body.theme-rambo .star {
+            animation: twinkle 0.5s infinite;
+        }
+
+        /* Ocean theme */
+        body.theme-ocean {
+            background: linear-gradient(135deg, #001a33 0%, #003d66 25%, #0066aa 50%, #003d66 75%, #001a33 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+        }
+
+        body.theme-ocean .main-title {
+            color: #00d9ff;
+            text-shadow: 0 0 15px #00d9ff;
+        }
+
+        body.theme-ocean .subtitle,
+        body.theme-ocean .bottom-item p {
+            color: rgba(0, 217, 255, 0.9);
+        }
+
+        body.theme-ocean .mouse-trail-star {
+            background: #00d9ff;
+        }
+
+        /* Sunset theme */
+        body.theme-sunset {
+            background: linear-gradient(135deg, #1a0a00 0%, #66330d 25%, #cc6600 50%, #cc3366 75%, #66194d 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 18s ease infinite;
+        }
+
+        body.theme-sunset .main-title {
+            color: #ffaa66;
+            text-shadow: 0 0 20px #ff6633;
+        }
+
+        body.theme-sunset .subtitle,
+        body.theme-sunset .bottom-item p {
+            color: rgba(255, 170, 102, 0.9);
+        }
+
+        body.theme-sunset .mouse-trail-star {
+            background: #ff8844;
+        }
+
+        /* Neon theme */
+        body.theme-neon {
+            background: linear-gradient(135deg, #0d0033 0%, #1a0066 25%, #330099 50%, #1a0066 75%, #0d0033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        body.theme-neon .main-title {
+            color: #00ffff;
+            text-shadow: 0 0 25px #00ffff, 0 0 50px #ff00ff;
+            animation: neonPulse 2s infinite;
+        }
+
+        body.theme-neon .subtitle,
+        body.theme-neon .bottom-item p {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+
+        body.theme-neon .mouse-trail-star {
+            background: #00ffff;
+            box-shadow: 0 0 10px #00ffff;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { text-shadow: 0 0 25px #00ffff, 0 0 50px #ff00ff; }
+            50% { text-shadow: 0 0 35px #00ffff, 0 0 70px #ff00ff; }
+        }
+
+        /* Matrix theme */
+        body.theme-matrix {
+            background: linear-gradient(135deg, #000d00 0%, #001a00 25%, #003300 50%, #001a00 75%, #000d00 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        body.theme-matrix .main-title {
+            color: #00ff00;
+            text-shadow: 0 0 20px #00ff00;
+            font-family: 'Courier New', monospace;
+            animation: matrixGlitch 3s infinite;
+        }
+
+        body.theme-matrix .subtitle,
+        body.theme-matrix .bottom-item p {
+            color: rgba(0, 255, 0, 0.9);
+            font-family: 'Courier New', monospace;
+        }
+
+        body.theme-matrix .mouse-trail-star {
+            background: #00ff00;
+        }
+
+        @keyframes matrixGlitch {
+            0%, 90%, 100% { transform: translateX(0); }
+            92% { transform: translateX(-2px); }
+            94% { transform: translateX(2px); }
+            96% { transform: translateX(-2px); }
+            98% { transform: translateX(2px); }
+        }
+
+        /* Fire theme */
+        body.theme-fire {
+            background: linear-gradient(135deg, #330000 0%, #661100 25%, #cc3300 50%, #ff6600 75%, #ffaa00 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        body.theme-fire .main-title {
+            color: #ffcc00;
+            text-shadow: 0 0 30px #ff6600, 0 0 60px #ff0000;
+            animation: fireFlicker 0.3s infinite;
+        }
+
+        body.theme-fire .subtitle,
+        body.theme-fire .bottom-item p {
+            color: rgba(255, 204, 0, 0.9);
+        }
+
+        body.theme-fire .mouse-trail-star {
+            background: #ff6600;
+            box-shadow: 0 0 15px #ff3300;
+        }
+
+        @keyframes fireFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        /* Ice theme */
+        body.theme-ice {
+            background: linear-gradient(135deg, #e6f5ff 0%, #b3d9ff 25%, #80c0ff 50%, #b3d9ff 75%, #e6f5ff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        body.theme-ice .main-title {
+            color: #0066cc;
+            text-shadow: 0 0 20px #66ccff;
+        }
+
+        body.theme-ice .subtitle,
+        body.theme-ice .bottom-item p {
+            color: #0066cc;
+        }
+
+        body.theme-ice .mouse-trail-star {
+            background: #66ccff;
+        }
+
+        body.theme-ice .icon img,
+        body.theme-ice .sidebar-item a img {
+            filter: brightness(0) invert(0.3) sepia(1) saturate(5) hue-rotate(180deg);
+        }
+
+        /* Galaxy theme */
+        body.theme-galaxy {
+            background: linear-gradient(135deg, #0d001a 0%, #1a0033 25%, #330066 50%, #660099 75%, #9900cc 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 14s ease infinite;
+        }
+
+        body.theme-galaxy .main-title {
+            color: #ff66ff;
+            text-shadow: 0 0 25px #ff66ff, 0 0 50px #6666ff;
+            animation: galaxySpin 5s infinite;
+        }
+
+        body.theme-galaxy .subtitle,
+        body.theme-galaxy .bottom-item p {
+            color: rgba(255, 102, 255, 0.9);
+        }
+
+        body.theme-galaxy .mouse-trail-star {
+            background: #ff66ff;
+        }
+
+        @keyframes galaxySpin {
+            0%, 100% { text-shadow: 0 0 25px #ff66ff, 0 0 50px #6666ff; }
+            50% { text-shadow: 0 0 25px #6666ff, 0 0 50px #ff66ff; }
+        }
+
+        /* Gold theme */
+        body.theme-gold {
+            background: linear-gradient(135deg, #1a1300 0%, #332600 25%, #664d00 50%, #332600 75%, #1a1300 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 16s ease infinite;
+        }
+
+        body.theme-gold .main-title {
+            color: #ffd700;
+            text-shadow: 0 0 20px #ffaa00;
+            animation: goldShine 3s infinite;
+        }
+
+        body.theme-gold .subtitle,
+        body.theme-gold .bottom-item p {
+            color: rgba(255, 215, 0, 0.9);
+        }
+
+        body.theme-gold .mouse-trail-star {
+            background: #ffd700;
+        }
+
+        @keyframes goldShine {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        /* Turbo theme - Ultra fast rainbow */
+        body.theme-turbo {
+            background: linear-gradient(135deg, #ff0000 0%, #ff9900 10%, #ffff00 20%, #00ff00 30%, #00ffff 40%, #0000ff 50%, #9900ff 60%, #ff00ff 70%, #ff0066 80%, #ff0000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 2s linear infinite;
+        }
+
+        body.theme-turbo .main-title {
+            color: #ffffff;
+            text-shadow: 0 0 30px #ff00ff, 0 0 60px #00ffff;
+            animation: turboShake 0.2s infinite;
+        }
+
+        body.theme-turbo .subtitle,
+        body.theme-turbo .bottom-item p {
+            color: #ffffff;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+
+        body.theme-turbo .mouse-trail-star {
+            background: #ffffff;
+            box-shadow: 0 0 20px #ff00ff;
+        }
+
+        @keyframes turboShake {
+            0%, 100% { transform: translateX(0) scale(1); }
+            25% { transform: translateX(-1px) scale(1.02); }
+            50% { transform: translateX(1px) scale(1); }
+            75% { transform: translateX(-1px) scale(0.98); }
+        }
+
+        /* Midnight theme */
+        body.theme-midnight {
+            background: linear-gradient(135deg, #000033 0%, #000066 25%, #003366 50%, #000066 75%, #000033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 18s ease infinite;
+        }
+
+        body.theme-midnight .main-title {
+            color: #6699ff;
+            text-shadow: 0 0 20px #3366cc;
+        }
+
+        body.theme-midnight .subtitle,
+        body.theme-midnight .bottom-item p {
+            color: rgba(102, 153, 255, 0.9);
+        }
+
+        body.theme-midnight .mouse-trail-star {
+            background: #6699ff;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .stars {
@@ -329,84 +624,23 @@
             }
         }
 
-        /* Theme variations */
-        body.theme-black {
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
+        .theme-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            text-transform: lowercase;
+            z-index: 101;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        body.theme-black .main-title,
-        body.theme-black .subtitle,
-        body.theme-black .bottom-item p {
-            color: #ffffff;
-        }
-
-        body.theme-black .mouse-trail-star {
-            background: #ffffff;
-        }
-
-        body.theme-green {
-            background: linear-gradient(135deg, #001a0d 0%, #003d1f 25%, #006633 50%, #003d1f 75%, #001a0d 100%);
-        }
-
-        body.theme-green .main-title {
-            color: #90ee90;
-        }
-
-        body.theme-green .subtitle,
-        body.theme-green .bottom-item p {
-            color: rgba(144, 238, 144, 0.9);
-        }
-
-        body.theme-green .mouse-trail-star {
-            background: #90ee90;
-        }
-
-        body.theme-red {
-            background: linear-gradient(135deg, #1a0000 0%, #3d0000 25%, #660000 50%, #3d0000 75%, #1a0000 100%);
-        }
-
-        body.theme-red .main-title {
-            color: #ffcccc;
-        }
-
-        body.theme-red .subtitle,
-        body.theme-red .bottom-item p {
-            color: rgba(255, 204, 204, 0.9);
-        }
-
-        body.theme-red .mouse-trail-star {
-            background: #ff6666;
-        }
-
-        body.theme-rambo {
-            background: linear-gradient(135deg, #0a0000 0%, #330000 25%, #660000 50%, #330000 75%, #0a0000 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        body.theme-rambo .main-title {
-            color: #ff0000;
-            text-shadow: 0 0 20px #ff0000;
-            animation: pulse 0.5s infinite;
-        }
-
-        body.theme-rambo .subtitle,
-        body.theme-rambo .bottom-item p {
-            color: rgba(255, 0, 0, 0.9);
-        }
-
-        body.theme-rambo .mouse-trail-star {
-            background: #ff0000;
-            animation: fadeOutStar 0.5s ease-out forwards;
-        }
-
-        body.theme-rambo .star {
-            animation: twinkle 0.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .theme-indicator.show {
+            opacity: 1;
         }
     </style>
 </head>
@@ -420,6 +654,8 @@
         <h1 class="title">we are loading your game!</h1>
         <p>please allow us to fetch the data first, this should only take a second.</p>
     </loading-game>
+
+    <div class="theme-indicator" id="themeIndicator"></div>
 
     <canvas id="particle-canvas"></canvas>
     <div class="stars"></div>
@@ -488,7 +724,7 @@
             <a href="#" id="settings-link">
                 <img src="https://ext.same-assets.com/3317140723/1346388685.svg" alt="Settings" width="24" height="24">
             </a>
-            <div class="sidebar-item-descriptor">settings</div>
+            <div class="sidebar-item-descriptor">settings (change theme)</div>
         </div>
         <div class="sidebar-item">
             <a href="#" data-target="/info">
@@ -536,13 +772,24 @@
 
         // Theme management
         let currentTheme = 'normal';
-        const themes = ['normal', 'black', 'green', 'red', 'rambo'];
+        const themes = ['normal', 'black', 'green', 'red', 'rambo', 'ocean', 'sunset', 'neon', 'matrix', 'fire', 'ice', 'galaxy', 'gold', 'turbo', 'midnight'];
+
         const themeColors = {
             normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
             black: { particle: 'rgba(255, 255, 255, 0.6)', line: '255, 255, 255', speed: 1 },
             green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144', speed: 1 },
             red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102', speed: 1 },
-            rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 }
+            rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 },
+            ocean: { particle: 'rgba(0, 217, 255, 0.6)', line: '0, 217, 255', speed: 1.5 },
+            sunset: { particle: 'rgba(255, 136, 68, 0.6)', line: '255, 136, 68', speed: 1.2 },
+            neon: { particle: 'rgba(0, 255, 255, 0.8)', line: '0, 255, 255', speed: 2 },
+            matrix: { particle: 'rgba(0, 255, 0, 0.7)', line: '0, 255, 0', speed: 2.5 },
+            fire: { particle: 'rgba(255, 102, 0, 0.8)', line: '255, 102, 0', speed: 4 },
+            ice: { particle: 'rgba(102, 204, 255, 0.6)', line: '102, 204, 255', speed: 0.8 },
+            galaxy: { particle: 'rgba(255, 102, 255, 0.7)', line: '255, 102, 255', speed: 1.3 },
+            gold: { particle: 'rgba(255, 215, 0, 0.7)', line: '255, 215, 0', speed: 1 },
+            turbo: { particle: 'rgba(255, 255, 255, 0.9)', line: '255, 0, 255', speed: 8 },
+            midnight: { particle: 'rgba(102, 153, 255, 0.6)', line: '102, 153, 255', speed: 1 }
         };
 
         // Particle system with mouse interaction
@@ -601,7 +848,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Update and draw particles
-            particles.forEach(particle => {
+            for (const particle of particles) {
                 particle.update();
                 particle.draw();
 
@@ -611,19 +858,19 @@
                     const dy = mouse.y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const currentConnectionDistance = currentTheme === 'rambo' ? 250 : connectionDistance;
+                    const currentConnectionDistance = ['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme) ? 250 : connectionDistance;
                     if (distance < currentConnectionDistance) {
                         const opacity = 1 - (distance / currentConnectionDistance);
-                        const lineOpacity = currentTheme === 'rambo' ? opacity * 0.8 : opacity * 0.5;
+                        const lineOpacity = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = currentTheme === 'rambo' ? 2 : 1;
+                        ctx.lineWidth = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 2 : 1;
                         ctx.beginPath();
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(mouse.x, mouse.y);
                         ctx.stroke();
                     }
                 }
-            });
+            }
 
             // Connect nearby particles to each other
             for (let i = 0; i < particles.length; i++) {
@@ -632,12 +879,12 @@
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const particleConnectionDistance = currentTheme === 'rambo' ? 150 : 100;
+                    const particleConnectionDistance = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 150 : 100;
                     if (distance < particleConnectionDistance) {
                         const opacity = 1 - (distance / particleConnectionDistance);
-                        const lineOpacity = currentTheme === 'rambo' ? opacity * 0.4 : opacity * 0.2;
+                        const lineOpacity = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = currentTheme === 'rambo' ? 1.5 : 0.5;
+                        ctx.lineWidth = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 1.5 : 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -656,10 +903,11 @@
             // Update mouse position for particle system
             mouse.x = e.clientX;
             mouse.y = e.clientY;
-            // Throttle the trail creation (rambo mode creates more stars)
+
+            // Throttle the trail creation
             if (mouseTrailTimeout) return;
 
-            const throttleTime = currentTheme === 'rambo' ? 20 : 50;
+            const throttleTime = ['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme) ? 20 : 50;
             mouseTrailTimeout = setTimeout(function() {
                 mouseTrailTimeout = null;
             }, throttleTime);
@@ -672,8 +920,8 @@
 
             document.body.appendChild(star);
 
-            // Remove star after animation completes (faster in rambo mode)
-            const removeTime = currentTheme === 'rambo' ? 500 : 1500;
+            // Remove star after animation completes
+            const removeTime = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 500 : 1500;
             setTimeout(function() {
                 star.remove();
             }, removeTime);
@@ -704,9 +952,21 @@
             onlineElement.textContent = 'currently online: ' + (baseCount + variation);
         }
 
+        // Show theme indicator
+        function showThemeIndicator(themeName) {
+            const indicator = document.getElementById('themeIndicator');
+            if (!indicator) return;
+
+            indicator.textContent = 'theme: ' + themeName;
+            indicator.classList.add('show');
+
+            setTimeout(function() {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
         // Open games page function
         function openGamesPage() {
-            // Show loading message briefly
             const loadingGame = document.querySelector('loading-game');
             if (loadingGame) {
                 loadingGame.classList.add('active');
@@ -715,10 +975,7 @@
                 }, 1000);
             }
 
-            // Open Clover's games page in a new window
             const newWindow = window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
-
-            // Fallback if popup blocker prevents opening
             if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
                 window.location.href = 'https://sites.google.com/view/cloveer/clovers-home';
             }
@@ -726,11 +983,8 @@
 
         // Open Discord function
         function openDiscord() {
-            // Open Discord invite link in a new tab
             const discordUrl = 'https://discord.gg/aQ8YSn79xQ';
             const newWindow = window.open(discordUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
             if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
                 window.location.href = discordUrl;
             }
@@ -738,11 +992,8 @@
 
         // Open Steam profile function
         function openSteamProfile() {
-            // Open Steam profile link in a new tab
             const steamUrl = 'https://steamcommunity.com/profiles/76561199703728458/';
             const newWindow = window.open(steamUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
             if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
                 window.location.href = steamUrl;
             }
@@ -750,11 +1001,8 @@
 
         // Open GitHub profile function
         function openGitHubProfile() {
-            // Open GitHub profile link in a new tab
             const githubUrl = 'https://github.com/artinRahm';
             const newWindow = window.open(githubUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
             if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
                 window.location.href = githubUrl;
             }
@@ -762,11 +1010,8 @@
 
         // Open Apps page function
         function openAppsPage() {
-            // Open Apps page in a new tab
             const appsUrl = 'https://gn-math.github.io/';
             const newWindow = window.open(appsUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
             if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
                 window.location.href = appsUrl;
             }
@@ -774,9 +1019,7 @@
 
         // Change theme function
         function changeTheme() {
-            // Get current theme index
             const currentIndex = themes.indexOf(currentTheme);
-            // Cycle to next theme
             const nextIndex = (currentIndex + 1) % themes.length;
             const nextTheme = themes[nextIndex];
 
@@ -790,14 +1033,15 @@
                 document.body.classList.add('theme-' + nextTheme);
             }
 
-            // Add more particles for rambo mode
-            if (nextTheme === 'rambo' && currentTheme !== 'rambo') {
-                for (let i = 0; i < 120; i++) {
+            // Add more particles for fast themes
+            if (['rambo', 'fire', 'turbo', 'neon'].includes(nextTheme) && !['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme)) {
+                const extraParticles = nextTheme === 'turbo' ? 150 : 120;
+                for (let i = 0; i < extraParticles; i++) {
                     particles.push(new Particle());
                 }
             }
-            // Remove extra particles when leaving rambo mode
-            else if (currentTheme === 'rambo' && nextTheme !== 'rambo') {
+            // Remove extra particles when leaving fast themes
+            else if (['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme) && !['rambo', 'fire', 'turbo', 'neon'].includes(nextTheme)) {
                 particles = particles.slice(0, particleCount);
             }
 
@@ -806,6 +1050,9 @@
 
             // Save theme preference
             localStorage.setItem('selectedTheme', currentTheme);
+
+            // Show theme indicator
+            showThemeIndicator(currentTheme);
         }
 
         // Load saved theme on page load
@@ -816,9 +1063,10 @@
                 if (currentTheme !== 'normal') {
                     document.body.classList.add('theme-' + currentTheme);
                 }
-                // Add extra particles for rambo mode
-                if (currentTheme === 'rambo') {
-                    for (let i = 0; i < 120; i++) {
+                // Add extra particles for fast themes
+                if (['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme)) {
+                    const extraParticles = currentTheme === 'turbo' ? 150 : 120;
+                    for (let i = 0; i < extraParticles; i++) {
                         particles.push(new Particle());
                     }
                 }
