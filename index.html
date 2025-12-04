@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Site</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mulish', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #340c60 25%, #50148e 50%, #340c60 75%, #1a0033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(235, 218, 244, 0.8);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        mobile-warning {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
+            background: rgba(52, 12, 96, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        mobile-warning .title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: lowercase;
+        }
+
+        @media (max-width: 768px) {
+            mobile-warning {
+                display: block;
+            }
+            sidebar, .main-content, #bottom-menu {
+                display: none;
+            }
+        }
+
+        .main-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #ebdaf4;
+            text-transform: lowercase;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(235, 218, 244, 0.9);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .icon img {
+            width: 60px;
+            height: 60px;
+            filter: brightness(0) invert(1);
+        }
+
+        sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 100;
+            width: 60px;
+        }
+
+        .sidebar-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-item a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .sidebar-item a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .sidebar-item a img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        .sidebar-item-descriptor {
+            position: absolute;
+            right: 60px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            font-size: 0.875rem;
+            text-transform: lowercase;
+        }
+
+        .sidebar-item:hover .sidebar-item-descriptor {
+            opacity: 1;
+        }
+
+        #bottom-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .bottom-item p {
+            font-size: 0.875rem;
+            color: rgba(235, 218, 244, 0.9);
+        }
+
+        loading-game {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
+            background: rgba(52, 12, 96, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+        }
+
+        loading-game.active {
+            display: block;
+        }
+
+        loading-game .title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-transform: lowercase;
+            color: #ebdaf4;
+        }
+
+        loading-game p {
+            color: rgba(235, 218, 244, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <mobile-warning>
+        <h1 class="title">your device is not supported!</h1>
+        <p>please rotate your screen for the best experience.</p>
+    </mobile-warning>
+
+    <loading-game>
+        <h1 class="title">we are loading your game!</h1>
+        <p>please allow us to fetch the data first, this should only take a second.</p>
+    </loading-game>
+
+    <div class="stars"></div>
+
+    <div class="main-content">
+        <h1 class="main-title">clover.</h1>
+        <p class="subtitle">clover</p>
+
+        <div class="social-icons">
+            <div class="icon" id="user-icon">
+                <img src="https://ext.same-assets.com/3317140723/1053687971.svg" alt="User" width="60" height="60">
+            </div>
+            <div class="icon" id="center-game-icon">
+                <img src="https://ext.same-assets.com/3317140723/1682574575.svg" alt="Games" width="60" height="60">
+            </div>
+            <div class="icon" id="discord-icon">
+                <img src="https://ext.same-assets.com/3317140723/2489687227.svg" alt="Discord" width="60" height="60">
+            </div>
+        </div>
+    </div>
+
+    <sidebar>
+        <div class="sidebar-item">
+            <a href="#" data-target="/home">
+                <img src="https://ext.same-assets.com/3317140723/762381749.svg" alt="Home" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">home</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="games-link">
+                <img src="https://ext.same-assets.com/3317140723/1682574575.svg" alt="Games" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">games</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" data-target="/apps">
+                <img src="https://ext.same-assets.com/3317140723/998683769.svg" alt="Apps" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">apps</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" data-target="/bookmarklets">
+                <img src="https://ext.same-assets.com/3317140723/2918451387.svg" alt="Bookmarklets" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">bookmarklets</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="openblank">
+                <img src="https://ext.same-assets.com/3317140723/2600602730.svg" alt="Open Blank" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">open blank</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="fullscreen">
+                <img src="https://ext.same-assets.com/3317140723/3724763578.svg" alt="Fullscreen" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">fullscreen</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" data-target="/u/">
+                <img src="https://ext.same-assets.com/3317140723/2067000323.svg" alt="User Profile" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">user profile</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" data-target="/settings">
+                <img src="https://ext.same-assets.com/3317140723/1346388685.svg" alt="Settings" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">settings</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" data-target="/info">
+                <img src="https://ext.same-assets.com/3317140723/2152150559.svg" alt="Information" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">information</div>
+        </div>
+    </sidebar>
+
+    <div id="bottom-menu">
+        <div class="bottom-item">
+            <p id="online">currently online: 1223</p>
+        </div>
+        <div class="bottom-item">
+            <p>|</p>
+        </div>
+        <div class="bottom-item">
+            <p id="weather">35°F ☁️</p>
+        </div>
+        <div class="bottom-item">
+            <p>|</p>
+        </div>
+        <div class="bottom-item">
+            <p id="time">1:28:57 PM</p>
+        </div>
+    </div>
+
+    <script>
+        // Create stars/particles
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            if (!starsContainer) return;
+
+            const starCount = 50;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (2 + Math.random() * 3) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Update time
+        function updateTime() {
+            const timeElement = document.getElementById('time');
+            if (!timeElement) return;
+
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+
+            timeElement.textContent = displayHours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        }
+
+        // Random online count variation
+        function updateOnlineCount() {
+            const onlineElement = document.getElementById('online');
+            if (!onlineElement) return;
+
+            const baseCount = 1223;
+            const variation = Math.floor(Math.random() * 10) - 5;
+            onlineElement.textContent = 'currently online: ' + (baseCount + variation);
+        }
+
+        // Open games page function
+        function openGamesPage() {
+            // Show loading message briefly
+            const loadingGame = document.querySelector('loading-game');
+            if (loadingGame) {
+                loadingGame.classList.add('active');
+                setTimeout(function() {
+                    loadingGame.classList.remove('active');
+                }, 1000);
+            }
+
+            // Open Clover's games page in a new window
+            const newWindow = window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
+
+            // Fallback if popup blocker prevents opening
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = 'https://sites.google.com/view/cloveer/clovers-home';
+            }
+        }
+
+        // Open Discord function
+        function openDiscord() {
+            // Open Discord invite link in a new tab
+            const discordUrl = 'https://discord.gg/aQ8YSn79xQ';
+            const newWindow = window.open(discordUrl, '_blank');
+
+            // Fallback if popup blocker prevents opening
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = discordUrl;
+            }
+        }
+
+        // Open Steam profile function
+        function openSteamProfile() {
+            // Open Steam profile link in a new tab
+            const steamUrl = 'https://steamcommunity.com/profiles/76561199703728458/';
+            const newWindow = window.open(steamUrl, '_blank');
+
+            // Fallback if popup blocker prevents opening
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = steamUrl;
+            }
+        }
+
+        // Setup event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            updateTime();
+            updateOnlineCount();
+
+            // Games link in sidebar
+            const gamesLink = document.getElementById('games-link');
+            if (gamesLink) {
+                gamesLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openGamesPage();
+                });
+            }
+
+            // Center game icon
+            const centerGameIcon = document.getElementById('center-game-icon');
+            if (centerGameIcon) {
+                centerGameIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openGamesPage();
+                });
+            }
+
+            // User/Steam icon
+            const userIcon = document.getElementById('user-icon');
+            if (userIcon) {
+                userIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openSteamProfile();
+                });
+            }
+
+            // Discord icon
+            const discordIcon = document.getElementById('discord-icon');
+            if (discordIcon) {
+                discordIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openDiscord();
+                });
+            }
+
+            // Open blank button
+            const openBlankBtn = document.getElementById('openblank');
+            if (openBlankBtn) {
+                openBlankBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
+                });
+            }
+
+            // Fullscreen button
+            const fullscreenBtn = document.getElementById('fullscreen');
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen().catch(function(err) {
+                            console.log('Error attempting to enable fullscreen: ' + err.message);
+                        });
+                    } else {
+                        document.exitFullscreen();
+                    }
+                });
+            }
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+
+            // Randomly update online count every 10 seconds
+            setInterval(updateOnlineCount, 10000);
+        });
+    </script>
+</body>
+</html>
