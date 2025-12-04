@@ -377,6 +377,37 @@
         body.theme-red .mouse-trail-star {
             background: #ff6666;
         }
+
+        body.theme-rambo {
+            background: linear-gradient(135deg, #0a0000 0%, #330000 25%, #660000 50%, #330000 75%, #0a0000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        body.theme-rambo .main-title {
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            animation: pulse 0.5s infinite;
+        }
+
+        body.theme-rambo .subtitle,
+        body.theme-rambo .bottom-item p {
+            color: rgba(255, 0, 0, 0.9);
+        }
+
+        body.theme-rambo .mouse-trail-star {
+            background: #ff0000;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+
+        body.theme-rambo .star {
+            animation: twinkle 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
     </style>
 </head>
 <body>
@@ -424,7 +455,7 @@
             <div class="sidebar-item-descriptor">games</div>
         </div>
         <div class="sidebar-item">
-            <a href="#" data-target="/apps">
+            <a href="#" id="apps-link">
                 <img src="https://ext.same-assets.com/3317140723/998683769.svg" alt="Apps" width="24" height="24">
             </a>
             <div class="sidebar-item-descriptor">apps</div>
@@ -505,12 +536,13 @@
 
         // Theme management
         let currentTheme = 'normal';
-        const themes = ['normal', 'black', 'green', 'red'];
+        const themes = ['normal', 'black', 'green', 'red', 'rambo'];
         const themeColors = {
-            normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217' },
-            black: { particle: 'rgba(255, 255, 255, 0.6)', line: '255, 255, 255' },
-            green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144' },
-            red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102' }
+            normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
+            black: { particle: 'rgba(255, 255, 255, 0.6)', line: '255, 255, 255', speed: 1 },
+            green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144', speed: 1 },
+            red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102', speed: 1 },
+            rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 }
         };
 
         // Particle system with mouse interaction
@@ -534,14 +566,15 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
+                this.baseVx = (Math.random() - 0.5) * 0.5;
+                this.baseVy = (Math.random() - 0.5) * 0.5;
                 this.radius = Math.random() * 2 + 1;
             }
 
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                const speedMultiplier = themeColors[currentTheme].speed;
+                this.x += this.baseVx * speedMultiplier;
+                this.y += this.baseVy * speedMultiplier;
 
                 // Wrap around edges
                 if (this.x < 0) this.x = canvas.width;
@@ -578,10 +611,12 @@
                     const dy = mouse.y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < connectionDistance) {
-                        const opacity = 1 - (distance / connectionDistance);
-                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${opacity * 0.5})`;
-                        ctx.lineWidth = 1;
+                    const currentConnectionDistance = currentTheme === 'rambo' ? 250 : connectionDistance;
+                    if (distance < currentConnectionDistance) {
+                        const opacity = 1 - (distance / currentConnectionDistance);
+                        const lineOpacity = currentTheme === 'rambo' ? opacity * 0.8 : opacity * 0.5;
+                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
+                        ctx.lineWidth = currentTheme === 'rambo' ? 2 : 1;
                         ctx.beginPath();
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(mouse.x, mouse.y);
@@ -597,10 +632,12 @@
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 100) {
-                        const opacity = 1 - (distance / 100);
-                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${opacity * 0.2})`;
-                        ctx.lineWidth = 0.5;
+                    const particleConnectionDistance = currentTheme === 'rambo' ? 150 : 100;
+                    if (distance < particleConnectionDistance) {
+                        const opacity = 1 - (distance / particleConnectionDistance);
+                        const lineOpacity = currentTheme === 'rambo' ? opacity * 0.4 : opacity * 0.2;
+                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
+                        ctx.lineWidth = currentTheme === 'rambo' ? 1.5 : 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -619,12 +656,13 @@
             // Update mouse position for particle system
             mouse.x = e.clientX;
             mouse.y = e.clientY;
-            // Throttle the trail creation
+            // Throttle the trail creation (rambo mode creates more stars)
             if (mouseTrailTimeout) return;
 
+            const throttleTime = currentTheme === 'rambo' ? 20 : 50;
             mouseTrailTimeout = setTimeout(function() {
                 mouseTrailTimeout = null;
-            }, 50);
+            }, throttleTime);
 
             // Create trail star
             const star = document.createElement('div');
@@ -634,10 +672,11 @@
 
             document.body.appendChild(star);
 
-            // Remove star after animation completes
+            // Remove star after animation completes (faster in rambo mode)
+            const removeTime = currentTheme === 'rambo' ? 500 : 1500;
             setTimeout(function() {
                 star.remove();
-            }, 1500);
+            }, removeTime);
         });
 
         // Update time
@@ -721,6 +760,18 @@
             }
         }
 
+        // Open Apps page function
+        function openAppsPage() {
+            // Open Apps page in a new tab
+            const appsUrl = 'https://gn-math.github.io/';
+            const newWindow = window.open(appsUrl, '_blank');
+
+            // Fallback if popup blocker prevents opening
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = appsUrl;
+            }
+        }
+
         // Change theme function
         function changeTheme() {
             // Get current theme index
@@ -739,6 +790,17 @@
                 document.body.classList.add('theme-' + nextTheme);
             }
 
+            // Add more particles for rambo mode
+            if (nextTheme === 'rambo' && currentTheme !== 'rambo') {
+                for (let i = 0; i < 120; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            // Remove extra particles when leaving rambo mode
+            else if (currentTheme === 'rambo' && nextTheme !== 'rambo') {
+                particles = particles.slice(0, particleCount);
+            }
+
             // Update current theme
             currentTheme = nextTheme;
 
@@ -753,6 +815,12 @@
                 currentTheme = savedTheme;
                 if (currentTheme !== 'normal') {
                     document.body.classList.add('theme-' + currentTheme);
+                }
+                // Add extra particles for rambo mode
+                if (currentTheme === 'rambo') {
+                    for (let i = 0; i < 120; i++) {
+                        particles.push(new Particle());
+                    }
                 }
             }
         }
@@ -840,6 +908,15 @@
                 settingsLink.addEventListener('click', function(e) {
                     e.preventDefault();
                     changeTheme();
+                });
+            }
+
+            // Apps button
+            const appsLink = document.getElementById('apps-link');
+            if (appsLink) {
+                appsLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openAppsPage();
                 });
             }
 
