@@ -1,931 +1,433 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>clover!</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Mulish', sans-serif;
-            background: linear-gradient(135deg, #1a0033 0%, #340c60 25%, #50148e 50%, #340c60 75%, #1a0033 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            color: white;
-            overflow: hidden;
-            height: 100vh;
-            position: relative;
-            transition: background 0.5s ease;
-        }
-
-        /* Black theme */
-        body.theme-black {
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
-        }
-
-        body.theme-black .main-title,
-        body.theme-black .subtitle,
-        body.theme-black .bottom-item p {
-            color: #ffffff;
-        }
-
-        body.theme-black .mouse-trail-star {
-            background: #666666;
-        }
-
-        /* Green theme */
-        body.theme-green {
-            background: linear-gradient(135deg, #001a0d 0%, #0d4d2d 25%, #198754 50%, #0d4d2d 75%, #001a0d 100%);
-        }
-
-        body.theme-green .main-title {
-            color: #90ee90;
-        }
-
-        body.theme-green .subtitle,
-        body.theme-green .bottom-item p {
-            color: rgba(144, 238, 144, 0.9);
-        }
-
-        body.theme-green .mouse-trail-star {
-            background: #90ee90;
-        }
-
-        /* Red theme */
-        body.theme-red {
-            background: linear-gradient(135deg, #1a0000 0%, #4d0d0d 25%, #8b1a1a 50%, #4d0d0d 75%, #1a0000 100%);
-        }
-
-        body.theme-red .main-title {
-            color: #ffb3b3;
-        }
-
-        body.theme-red .subtitle,
-        body.theme-red .bottom-item p {
-            color: rgba(255, 179, 179, 0.9);
-        }
-
-        body.theme-red .mouse-trail-star {
-            background: #ff6b6b;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .star {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(235, 218, 244, 0.8);
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        mobile-warning {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 1000;
-            background: rgba(52, 12, 96, 0.9);
-            padding: 2rem;
-            border-radius: 10px;
-        }
-
-        mobile-warning .title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-transform: lowercase;
-        }
-
-        @media (max-width: 768px) {
-            mobile-warning {
-                display: block;
-            }
-            sidebar, .main-content, #bottom-menu {
-                display: none;
-            }
-        }
-
-        .main-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 2;
-        }
-
-        .main-title {
-            font-size: 5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: #ebdaf4;
-            text-transform: lowercase;
-            letter-spacing: 0.05em;
-        }
-
-        .subtitle {
-            font-size: 1.25rem;
-            color: rgba(235, 218, 244, 0.9);
-            margin-bottom: 3rem;
-            font-weight: 400;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .icon {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            border-radius: 10px;
-        }
-
-        .icon:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .icon img {
-            width: 60px;
-            height: 60px;
-            filter: brightness(0) invert(1);
-        }
-
-        sidebar {
-            position: fixed;
-            right: 0;
-            top: 0;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            z-index: 100;
-            width: 60px;
-        }
-
-        .sidebar-item {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sidebar-item a {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-        }
-
-        .sidebar-item a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.1);
-        }
-
-        .sidebar-item a img {
-            width: 24px;
-            height: 24px;
-            filter: brightness(0) invert(1);
-        }
-
-        .sidebar-item-descriptor {
-            position: absolute;
-            right: 60px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            font-size: 0.875rem;
-            text-transform: lowercase;
-        }
-
-        .sidebar-item:hover .sidebar-item-descriptor {
-            opacity: 1;
-        }
-
-        #bottom-menu {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 60px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            z-index: 100;
-        }
-
-        .bottom-item p {
-            font-size: 0.875rem;
-            color: rgba(235, 218, 244, 0.9);
-        }
-
-        loading-game {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 1000;
-            background: rgba(52, 12, 96, 0.95);
-            padding: 3rem;
-            border-radius: 15px;
-        }
-
-        loading-game.active {
-            display: block;
-        }
-
-        loading-game .title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            text-transform: lowercase;
-            color: #ebdaf4;
-        }
-
-        loading-game p {
-            color: rgba(235, 218, 244, 0.8);
-        }
-
-        .mouse-trail-star {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background: #b19cd9;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            pointer-events: none;
-            z-index: 9999;
-            animation: fadeOutStar 1.5s ease-out forwards;
-        }
-
-        @keyframes fadeOutStar {
-            0% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.3) rotate(180deg);
-            }
-        }
-
-        /* Theme variations */
-        body.theme-black {
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
-        }
-
-        body.theme-black .main-title,
-        body.theme-black .subtitle,
-        body.theme-black .bottom-item p {
-            color: #ffffff;
-        }
-
-        body.theme-black .mouse-trail-star {
-            background: #ffffff;
-        }
-
-        body.theme-green {
-            background: linear-gradient(135deg, #001a0d 0%, #003d1f 25%, #006633 50%, #003d1f 75%, #001a0d 100%);
-        }
-
-        body.theme-green .main-title {
-            color: #90ee90;
-        }
-
-        body.theme-green .subtitle,
-        body.theme-green .bottom-item p {
-            color: rgba(144, 238, 144, 0.9);
-        }
-
-        body.theme-green .mouse-trail-star {
-            background: #90ee90;
-        }
-
-        body.theme-red {
-            background: linear-gradient(135deg, #1a0000 0%, #3d0000 25%, #660000 50%, #3d0000 75%, #1a0000 100%);
-        }
-
-        body.theme-red .main-title {
-            color: #ffcccc;
-        }
-
-        body.theme-red .subtitle,
-        body.theme-red .bottom-item p {
-            color: rgba(255, 204, 204, 0.9);
-        }
-
-        body.theme-red .mouse-trail-star {
-            background: #ff6666;
-        }
-
-        body.theme-rambo {
-            background: linear-gradient(135deg, #0a0000 0%, #330000 25%, #660000 50%, #330000 75%, #0a0000 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        body.theme-rambo .main-title {
-            color: #ff0000;
-            text-shadow: 0 0 20px #ff0000;
-            animation: pulse 0.5s infinite;
-        }
-
-        body.theme-rambo .subtitle,
-        body.theme-rambo .bottom-item p {
-            color: rgba(255, 0, 0, 0.9);
-        }
-
-        body.theme-rambo .mouse-trail-star {
-            background: #ff0000;
-            animation: fadeOutStar 0.5s ease-out forwards;
-        }
-
-        body.theme-rambo .star {
-            animation: twinkle 0.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-    </style>
-</head>
-<body>
-    <mobile-warning>
-        <h1 class="title">your device is not supported!</h1>
-        <p>please rotate your screen for the best experience.</p>
-    </mobile-warning>
-
-    <loading-game>
-        <h1 class="title">we are loading your game!</h1>
-        <p>please allow us to fetch the data first, this should only take a second.</p>
-    </loading-game>
-
-    <canvas id="particle-canvas"></canvas>
-    <div class="stars"></div>
-
-    <div class="main-content">
-        <h1 class="main-title">clover.</h1>
-        <p class="subtitle">clover</p>
-
-        <div class="social-icons">
-            <div class="icon" id="user-icon">
-                <img src="https://ext.same-assets.com/3317140723/1053687971.svg" alt="User" width="60" height="60">
-            </div>
-            <div class="icon" id="center-game-icon">
-                <img src="https://ext.same-assets.com/3317140723/1682574575.svg" alt="Games" width="60" height="60">
-            </div>
-            <div class="icon" id="discord-icon">
-                <img src="https://ext.same-assets.com/3317140723/2489687227.svg" alt="Discord" width="60" height="60">
-            </div>
-        </div>
-    </div>
-
-    <sidebar>
-        <div class="sidebar-item">
-            <a href="#" data-target="/home">
-                <img src="https://ext.same-assets.com/3317140723/762381749.svg" alt="Home" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">home</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" id="games-link">
-                <img src="https://ext.same-assets.com/3317140723/1682574575.svg" alt="Games" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">games</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" id="apps-link">
-                <img src="https://ext.same-assets.com/3317140723/998683769.svg" alt="Apps" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">apps</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" data-target="/bookmarklets">
-                <img src="https://ext.same-assets.com/3317140723/2918451387.svg" alt="Bookmarklets" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">bookmarklets</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" id="openblank">
-                <img src="https://ext.same-assets.com/3317140723/2600602730.svg" alt="Open Blank" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">open blank</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" id="fullscreen">
-                <img src="https://ext.same-assets.com/3317140723/3724763578.svg" alt="Fullscreen" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">fullscreen</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" id="user-profile-link">
-                <img src="https://ext.same-assets.com/3317140723/2067000323.svg" alt="User Profile" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">user profile</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" id="settings-link">
-                <img src="https://ext.same-assets.com/3317140723/1346388685.svg" alt="Settings" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">settings</div>
-        </div>
-        <div class="sidebar-item">
-            <a href="#" data-target="/info">
-                <img src="https://ext.same-assets.com/3317140723/2152150559.svg" alt="Information" width="24" height="24">
-            </a>
-            <div class="sidebar-item-descriptor">information</div>
-        </div>
-    </sidebar>
-
-    <div id="bottom-menu">
-        <div class="bottom-item">
-            <p id="online">currently online: 1223</p>
-        </div>
-        <div class="bottom-item">
-            <p>|</p>
-        </div>
-        <div class="bottom-item">
-            <p id="weather">35°F ☁️</p>
-        </div>
-        <div class="bottom-item">
-            <p>|</p>
-        </div>
-        <div class="bottom-item">
-            <p id="time">1:28:57 PM</p>
-        </div>
-    </div>
-
-    <script>
-        // Create stars/particles
-        function createStars() {
-            const starsContainer = document.querySelector('.stars');
-            if (!starsContainer) return;
-
-            const starCount = 50;
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = (2 + Math.random() * 3) + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-
-        // Theme management
-        let currentTheme = 'normal';
-        const themes = ['normal', 'black', 'green', 'red', 'rambo'];
-        const themeColors = {
-            normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
-            black: { particle: 'rgba(255, 255, 255, 0.6)', line: '255, 255, 255', speed: 1 },
-            green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144', speed: 1 },
-            red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102', speed: 1 },
-            rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 }
-        };
-
-        // Particle system with mouse interaction
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null };
-        const connectionDistance = 150;
-        const particleCount = 80;
-
-        // Set canvas size
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // Particle class
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.baseVx = (Math.random() - 0.5) * 0.5;
-                this.baseVy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
-            }
-
-            update() {
-                const speedMultiplier = themeColors[currentTheme].speed;
-                this.x += this.baseVx * speedMultiplier;
-                this.y += this.baseVy * speedMultiplier;
-
-                // Wrap around edges
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
-            }
-
-            draw() {
-                ctx.fillStyle = themeColors[currentTheme].particle;
+// Create stars/particles
+function createStars(): void {
+    const starsContainer = document.querySelector('.stars');
+    if (!starsContainer) return;
+
+    const starCount = 50;
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        star.style.animationDuration = `${2 + Math.random() * 3}s`;
+        starsContainer.appendChild(star);
+    }
+}
+
+// Theme management
+let currentTheme = 'normal';
+const themes = ['normal', 'black', 'green', 'red', 'rambo', 'ocean', 'sunset', 'neon', 'matrix', 'fire', 'ice', 'galaxy', 'gold', 'turbo', 'midnight'];
+
+interface ThemeConfig {
+    particle: string;
+    line: string;
+    speed: number;
+}
+
+const themeColors: Record<string, ThemeConfig> = {
+    normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
+    black: { particle: 'rgba(255, 255, 255, 0.6)', line: '255, 255, 255', speed: 1 },
+    green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144', speed: 1 },
+    red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102', speed: 1 },
+    rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 },
+    ocean: { particle: 'rgba(0, 217, 255, 0.6)', line: '0, 217, 255', speed: 1.5 },
+    sunset: { particle: 'rgba(255, 136, 68, 0.6)', line: '255, 136, 68', speed: 1.2 },
+    neon: { particle: 'rgba(0, 255, 255, 0.8)', line: '0, 255, 255', speed: 2 },
+    matrix: { particle: 'rgba(0, 255, 0, 0.7)', line: '0, 255, 0', speed: 2.5 },
+    fire: { particle: 'rgba(255, 102, 0, 0.8)', line: '255, 102, 0', speed: 4 },
+    ice: { particle: 'rgba(102, 204, 255, 0.6)', line: '102, 204, 255', speed: 0.8 },
+    galaxy: { particle: 'rgba(255, 102, 255, 0.7)', line: '255, 102, 255', speed: 1.3 },
+    gold: { particle: 'rgba(255, 215, 0, 0.7)', line: '255, 215, 0', speed: 1 },
+    turbo: { particle: 'rgba(255, 255, 255, 0.9)', line: '255, 0, 255', speed: 8 },
+    midnight: { particle: 'rgba(102, 153, 255, 0.6)', line: '102, 153, 255', speed: 1 }
+};
+
+// Particle system with mouse interaction
+const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+let particles: Particle[] = [];
+const mouse = { x: null as number | null, y: null as number | null };
+const connectionDistance = 150;
+const particleCount = 80;
+
+// Set canvas size
+function resizeCanvas(): void {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Particle class
+class Particle {
+    x: number;
+    y: number;
+    baseVx: number;
+    baseVy: number;
+    radius: number;
+
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.baseVx = (Math.random() - 0.5) * 0.5;
+        this.baseVy = (Math.random() - 0.5) * 0.5;
+        this.radius = Math.random() * 2 + 1;
+    }
+
+    update(): void {
+        const speedMultiplier = themeColors[currentTheme].speed;
+        this.x += this.baseVx * speedMultiplier;
+        this.y += this.baseVy * speedMultiplier;
+
+        // Wrap around edges
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+    }
+
+    draw(): void {
+        ctx.fillStyle = themeColors[currentTheme].particle;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Initialize particles
+for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+}
+
+// Animation loop
+function animate(): void {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Update and draw particles
+    for (const particle of particles) {
+        particle.update();
+        particle.draw();
+
+        // Draw line to mouse if close enough
+        if (mouse.x !== null && mouse.y !== null) {
+            const dx = mouse.x - particle.x;
+            const dy = mouse.y - particle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            const currentConnectionDistance = ['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme) ? 250 : connectionDistance;
+            if (distance < currentConnectionDistance) {
+                const opacity = 1 - (distance / currentConnectionDistance);
+                const lineOpacity = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
+                ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
+                ctx.lineWidth = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 2 : 1;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.moveTo(particle.x, particle.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
             }
         }
+    }
 
-        // Initialize particles
-        for (let i = 0; i < particleCount; i++) {
+    // Connect nearby particles to each other
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            const particleConnectionDistance = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 150 : 100;
+            if (distance < particleConnectionDistance) {
+                const opacity = 1 - (distance / particleConnectionDistance);
+                const lineOpacity = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
+                ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
+                ctx.lineWidth = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 1.5 : 0.5;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+animate();
+
+// Mouse trail effect
+let mouseTrailTimeout: number | undefined;
+document.addEventListener('mousemove', (e: MouseEvent) => {
+    // Update mouse position for particle system
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+
+    // Throttle the trail creation
+    if (mouseTrailTimeout) return;
+
+    const throttleTime = ['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme) ? 20 : 50;
+    mouseTrailTimeout = window.setTimeout(() => {
+        mouseTrailTimeout = undefined;
+    }, throttleTime);
+
+    // Create trail star
+    const star = document.createElement('div');
+    star.className = 'mouse-trail-star';
+    star.style.left = `${e.clientX - 6}px`;
+    star.style.top = `${e.clientY - 6}px`;
+
+    document.body.appendChild(star);
+
+    // Remove star after animation completes
+    const removeTime = ['rambo', 'fire', 'turbo'].includes(currentTheme) ? 500 : 1500;
+    setTimeout(() => {
+        star.remove();
+    }, removeTime);
+});
+
+// Update time
+function updateTime(): void {
+    const timeElement = document.getElementById('time');
+    if (!timeElement) return;
+
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const displayHours = hours % 12 || 12;
+
+    timeElement.textContent = `${displayHours}:${minutes}:${seconds} ${ampm}`;
+}
+
+// Random online count variation
+function updateOnlineCount(): void {
+    const onlineElement = document.getElementById('online');
+    if (!onlineElement) return;
+
+    const baseCount = 1223;
+    const variation = Math.floor(Math.random() * 10) - 5;
+    onlineElement.textContent = `currently online: ${baseCount + variation}`;
+}
+
+// Show theme indicator
+function showThemeIndicator(themeName: string): void {
+    const indicator = document.getElementById('themeIndicator');
+    if (!indicator) return;
+
+    indicator.textContent = `theme: ${themeName}`;
+    indicator.classList.add('show');
+
+    setTimeout(() => {
+        indicator.classList.remove('show');
+    }, 2000);
+}
+
+// Open games page function
+function openGamesPage(): void {
+    const loadingGame = document.querySelector('loading-game');
+    if (loadingGame) {
+        loadingGame.classList.add('active');
+        setTimeout(() => {
+            loadingGame.classList.remove('active');
+        }, 1000);
+    }
+
+    const newWindow = window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = 'https://sites.google.com/view/cloveer/clovers-home';
+    }
+}
+
+// Open Discord function
+function openDiscord(): void {
+    const discordUrl = 'https://discord.gg/aQ8YSn79xQ';
+    const newWindow = window.open(discordUrl, '_blank');
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = discordUrl;
+    }
+}
+
+// Open Steam profile function
+function openSteamProfile(): void {
+    const steamUrl = 'https://steamcommunity.com/profiles/76561199703728458/';
+    const newWindow = window.open(steamUrl, '_blank');
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = steamUrl;
+    }
+}
+
+// Open GitHub profile function
+function openGitHubProfile(): void {
+    const githubUrl = 'https://github.com/artinRahm';
+    const newWindow = window.open(githubUrl, '_blank');
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = githubUrl;
+    }
+}
+
+// Open Apps page function
+function openAppsPage(): void {
+    const appsUrl = 'https://gn-math.github.io/';
+    const newWindow = window.open(appsUrl, '_blank');
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = appsUrl;
+    }
+}
+
+// Change theme function
+function changeTheme(): void {
+    const currentIndex = themes.indexOf(currentTheme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    const nextTheme = themes[nextIndex];
+
+    // Remove current theme class
+    if (currentTheme !== 'normal') {
+        document.body.classList.remove(`theme-${currentTheme}`);
+    }
+
+    // Add new theme class
+    if (nextTheme !== 'normal') {
+        document.body.classList.add(`theme-${nextTheme}`);
+    }
+
+    // Add more particles for fast themes
+    if (['rambo', 'fire', 'turbo', 'neon'].includes(nextTheme) && !['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme)) {
+        const extraParticles = nextTheme === 'turbo' ? 150 : 120;
+        for (let i = 0; i < extraParticles; i++) {
             particles.push(new Particle());
         }
+    }
+    // Remove extra particles when leaving fast themes
+    else if (['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme) && !['rambo', 'fire', 'turbo', 'neon'].includes(nextTheme)) {
+        particles = particles.slice(0, particleCount);
+    }
 
-        // Animation loop
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Update current theme
+    currentTheme = nextTheme;
 
-            // Update and draw particles
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+    // Save theme preference
+    localStorage.setItem('selectedTheme', currentTheme);
 
-                // Draw line to mouse if close enough
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = mouse.x - particle.x;
-                    const dy = mouse.y - particle.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+    // Show theme indicator
+    showThemeIndicator(currentTheme);
+}
 
-                    const currentConnectionDistance = currentTheme === 'rambo' ? 250 : connectionDistance;
-                    if (distance < currentConnectionDistance) {
-                        const opacity = 1 - (distance / currentConnectionDistance);
-                        const lineOpacity = currentTheme === 'rambo' ? opacity * 0.8 : opacity * 0.5;
-                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = currentTheme === 'rambo' ? 2 : 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particle.x, particle.y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.stroke();
-                    }
-                }
-            });
-
-            // Connect nearby particles to each other
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    const particleConnectionDistance = currentTheme === 'rambo' ? 150 : 100;
-                    if (distance < particleConnectionDistance) {
-                        const opacity = 1 - (distance / particleConnectionDistance);
-                        const lineOpacity = currentTheme === 'rambo' ? opacity * 0.4 : opacity * 0.2;
-                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = currentTheme === 'rambo' ? 1.5 : 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            requestAnimationFrame(animate);
+// Load saved theme on page load
+function loadTheme(): void {
+    const savedTheme = localStorage.getItem('selectedTheme');
+    if (savedTheme && themes.includes(savedTheme)) {
+        currentTheme = savedTheme;
+        if (currentTheme !== 'normal') {
+            document.body.classList.add(`theme-${currentTheme}`);
         }
-        animate();
+        // Add extra particles for fast themes
+        if (['rambo', 'fire', 'turbo', 'neon'].includes(currentTheme)) {
+            const extraParticles = currentTheme === 'turbo' ? 150 : 120;
+            for (let i = 0; i < extraParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+    }
+}
 
-        // Mouse trail effect
-        let mouseTrailTimeout;
-        document.addEventListener('mousemove', function(e) {
-            // Update mouse position for particle system
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-            // Throttle the trail creation (rambo mode creates more stars)
-            if (mouseTrailTimeout) return;
+// Setup event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    loadTheme();
+    createStars();
+    updateTime();
+    updateOnlineCount();
 
-            const throttleTime = currentTheme === 'rambo' ? 20 : 50;
-            mouseTrailTimeout = setTimeout(function() {
-                mouseTrailTimeout = null;
-            }, throttleTime);
-
-            // Create trail star
-            const star = document.createElement('div');
-            star.className = 'mouse-trail-star';
-            star.style.left = (e.clientX - 6) + 'px';
-            star.style.top = (e.clientY - 6) + 'px';
-
-            document.body.appendChild(star);
-
-            // Remove star after animation completes (faster in rambo mode)
-            const removeTime = currentTheme === 'rambo' ? 500 : 1500;
-            setTimeout(function() {
-                star.remove();
-            }, removeTime);
+    // Games link in sidebar
+    const gamesLink = document.getElementById('games-link');
+    if (gamesLink) {
+        gamesLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openGamesPage();
         });
+    }
 
-        // Update time
-        function updateTime() {
-            const timeElement = document.getElementById('time');
-            if (!timeElement) return;
-
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const displayHours = hours % 12 || 12;
-
-            timeElement.textContent = displayHours + ':' + minutes + ':' + seconds + ' ' + ampm;
-        }
-
-        // Random online count variation
-        function updateOnlineCount() {
-            const onlineElement = document.getElementById('online');
-            if (!onlineElement) return;
-
-            const baseCount = 1223;
-            const variation = Math.floor(Math.random() * 10) - 5;
-            onlineElement.textContent = 'currently online: ' + (baseCount + variation);
-        }
-
-        // Open games page function
-        function openGamesPage() {
-            // Show loading message briefly
-            const loadingGame = document.querySelector('loading-game');
-            if (loadingGame) {
-                loadingGame.classList.add('active');
-                setTimeout(function() {
-                    loadingGame.classList.remove('active');
-                }, 1000);
-            }
-
-            // Open Clover's games page in a new window
-            const newWindow = window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
-
-            // Fallback if popup blocker prevents opening
-            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                window.location.href = 'https://sites.google.com/view/cloveer/clovers-home';
-            }
-        }
-
-        // Open Discord function
-        function openDiscord() {
-            // Open Discord invite link in a new tab
-            const discordUrl = 'https://discord.gg/aQ8YSn79xQ';
-            const newWindow = window.open(discordUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
-            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                window.location.href = discordUrl;
-            }
-        }
-
-        // Open Steam profile function
-        function openSteamProfile() {
-            // Open Steam profile link in a new tab
-            const steamUrl = 'https://steamcommunity.com/profiles/76561199703728458/';
-            const newWindow = window.open(steamUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
-            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                window.location.href = steamUrl;
-            }
-        }
-
-        // Open GitHub profile function
-        function openGitHubProfile() {
-            // Open GitHub profile link in a new tab
-            const githubUrl = 'https://github.com/artinRahm';
-            const newWindow = window.open(githubUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
-            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                window.location.href = githubUrl;
-            }
-        }
-
-        // Open Apps page function
-        function openAppsPage() {
-            // Open Apps page in a new tab
-            const appsUrl = 'https://gn-math.github.io/';
-            const newWindow = window.open(appsUrl, '_blank');
-
-            // Fallback if popup blocker prevents opening
-            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                window.location.href = appsUrl;
-            }
-        }
-
-        // Change theme function
-        function changeTheme() {
-            // Get current theme index
-            const currentIndex = themes.indexOf(currentTheme);
-            // Cycle to next theme
-            const nextIndex = (currentIndex + 1) % themes.length;
-            const nextTheme = themes[nextIndex];
-
-            // Remove current theme class
-            if (currentTheme !== 'normal') {
-                document.body.classList.remove('theme-' + currentTheme);
-            }
-
-            // Add new theme class
-            if (nextTheme !== 'normal') {
-                document.body.classList.add('theme-' + nextTheme);
-            }
-
-            // Add more particles for rambo mode
-            if (nextTheme === 'rambo' && currentTheme !== 'rambo') {
-                for (let i = 0; i < 120; i++) {
-                    particles.push(new Particle());
-                }
-            }
-            // Remove extra particles when leaving rambo mode
-            else if (currentTheme === 'rambo' && nextTheme !== 'rambo') {
-                particles = particles.slice(0, particleCount);
-            }
-
-            // Update current theme
-            currentTheme = nextTheme;
-
-            // Save theme preference
-            localStorage.setItem('selectedTheme', currentTheme);
-        }
-
-        // Load saved theme on page load
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('selectedTheme');
-            if (savedTheme && themes.includes(savedTheme)) {
-                currentTheme = savedTheme;
-                if (currentTheme !== 'normal') {
-                    document.body.classList.add('theme-' + currentTheme);
-                }
-                // Add extra particles for rambo mode
-                if (currentTheme === 'rambo') {
-                    for (let i = 0; i < 120; i++) {
-                        particles.push(new Particle());
-                    }
-                }
-            }
-        }
-
-        // Setup event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            loadTheme();
-            createStars();
-            updateTime();
-            updateOnlineCount();
-
-            // Games link in sidebar
-            const gamesLink = document.getElementById('games-link');
-            if (gamesLink) {
-                gamesLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openGamesPage();
-                });
-            }
-
-            // Center game icon
-            const centerGameIcon = document.getElementById('center-game-icon');
-            if (centerGameIcon) {
-                centerGameIcon.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openGamesPage();
-                });
-            }
-
-            // User/Steam icon
-            const userIcon = document.getElementById('user-icon');
-            if (userIcon) {
-                userIcon.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openSteamProfile();
-                });
-            }
-
-            // Discord icon
-            const discordIcon = document.getElementById('discord-icon');
-            if (discordIcon) {
-                discordIcon.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openDiscord();
-                });
-            }
-
-            // Open blank button
-            const openBlankBtn = document.getElementById('openblank');
-            if (openBlankBtn) {
-                openBlankBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
-                });
-            }
-
-            // Fullscreen button
-            const fullscreenBtn = document.getElementById('fullscreen');
-            if (fullscreenBtn) {
-                fullscreenBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    if (!document.fullscreenElement) {
-                        document.documentElement.requestFullscreen().catch(function(err) {
-                            console.log('Error attempting to enable fullscreen: ' + err.message);
-                        });
-                    } else {
-                        document.exitFullscreen();
-                    }
-                });
-            }
-
-            // User profile button (GitHub)
-            const userProfileLink = document.getElementById('user-profile-link');
-            if (userProfileLink) {
-                userProfileLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openGitHubProfile();
-                });
-            }
-
-            // Settings button (Theme switcher)
-            const settingsLink = document.getElementById('settings-link');
-            if (settingsLink) {
-                settingsLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    changeTheme();
-                });
-            }
-
-            // Apps button
-            const appsLink = document.getElementById('apps-link');
-            if (appsLink) {
-                appsLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openAppsPage();
-                });
-            }
-
-            // Update time every second
-            setInterval(updateTime, 1000);
-
-            // Randomly update online count every 10 seconds
-            setInterval(updateOnlineCount, 10000);
+    // Center game icon
+    const centerGameIcon = document.getElementById('center-game-icon');
+    if (centerGameIcon) {
+        centerGameIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            openGamesPage();
         });
-    </script>
-</body>
-</html>
+    }
+
+    // User/Steam icon
+    const userIcon = document.getElementById('user-icon');
+    if (userIcon) {
+        userIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            openSteamProfile();
+        });
+    }
+
+    // Discord icon
+    const discordIcon = document.getElementById('discord-icon');
+    if (discordIcon) {
+        discordIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            openDiscord();
+        });
+    }
+
+    // Open blank button
+    const openBlankBtn = document.getElementById('openblank');
+    if (openBlankBtn) {
+        openBlankBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
+        });
+    }
+
+    // Fullscreen button
+    const fullscreenBtn = document.getElementById('fullscreen');
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch((err) => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        });
+    }
+
+    // User profile button (GitHub)
+    const userProfileLink = document.getElementById('user-profile-link');
+    if (userProfileLink) {
+        userProfileLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openGitHubProfile();
+        });
+    }
+
+    // Settings button (Theme switcher)
+    const settingsLink = document.getElementById('settings-link');
+    if (settingsLink) {
+        settingsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            changeTheme();
+        });
+    }
+
+    // Apps button
+    const appsLink = document.getElementById('apps-link');
+    if (appsLink) {
+        appsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openAppsPage();
+        });
+    }
+
+    // Update time every second
+    setInterval(updateTime, 1000);
+
+    // Randomly update online count every 10 seconds
+    setInterval(updateOnlineCount, 10000);
+});
