@@ -1,6 +1,17 @@
 Clover - Multi-Theme Landing Page
 A beautiful, animated landing page with 30 different themes and particle effects.
 
+⚠️ COPYRIGHT NOTICE
+© 2025 Clover. All Rights Reserved.
+
+This code is proprietary and confidential. You may NOT:
+
+❌ Copy, modify, or distribute this code
+❌ Use this code for commercial purposes
+❌ Claim this work as your own
+❌ Remove or alter copyright notices
+Unauthorized copying, distribution, or use is strictly prohibited and may result in legal action.
+
 Features
 30 unique themes with different speeds and effects
 Interactive particle system that follows your mouse
@@ -44,22 +55,3 @@ Arctic (light arctic blue)
 Emerald (emerald green)
 Sapphire (sapphire blue)
 Amber (golden amber)
-GitHub Pages Setup
-Fork or clone this repository
-Go to your repository Settings
-Scroll to "Pages" section
-Under "Source", select "main" branch
-Click "Save"
-Your site will be live at: https://yourusername.github.io/repository-name/
-Usage
-Click the Settings icon (gear icon) in the sidebar to cycle through themes
-Hover over sidebar icons to see descriptions
-Your theme preference is automatically saved
-Move your mouse to see particle effects and star trails
-Customization
-To customize the page, edit index.html:
-
-Change the title by editing the <h1 class="main-title"> element
-Update links in the sidebar
-Modify theme colors in the CSS section
-Adjust particle counts and speeds in the JavaScript section
