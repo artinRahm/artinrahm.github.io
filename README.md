@@ -4,6 +4,26 @@ From the Clover team, thank you, guys, for the help in making this website. We a
 to have fun in school, this was never made for breaking school rules. This is a project that we are making. We hope you guys are happy and enjoy the new update <3
 # Clover Website Update
 
+
+time made 3:03 pm 12/5/25
+⛏️ Theme Update Patch Notes
+📦 What Happened?
+
+Our build team just pushed a major theme overhaul update — consider it the big “resource pack refresh.”
+
+🪓 Theme Reduction
+
+We mined out the clutter and trimmed the theme list from 30 down to 14.
+Only the cleanest, strongest, highest-quality builds remain.
+
+🎨 Theme Reworks
+
+Most of the remaining themes were rebuilt, remodeled, or entirely reforged.
+Everything should now look cleaner, more consistent, and more polished — like upgrading from stone tools to diamond.
+
+
+
+
 I recently updated my website **Clover** with a new navigation change.  
 Previously, clicking the **Apps** icon opened the apps section inside the Clover site.  
 Now, the **Apps** icon redirects you to my new website for a smoother and more organized experience.
