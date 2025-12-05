@@ -7,6 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Righteous&family=Iceland&family=Audiowide&family=Black+Ops+One&family=Creepster&family=Monoton&family=Russo+One&family=Bungee+Shade&family=Fredoka+One&display=swap');
 
         * {
             margin: 0;
@@ -32,17 +33,30 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Online counter animation */
+        .online-count {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .online-count.updating {
+            animation: countPulse 0.3s ease;
+        }
+
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); color: inherit; }
+            50% { transform: scale(1.15); color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+        }
+
         /* Black theme */
         body.theme-black {
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
         }
-
         body.theme-black .main-title,
         body.theme-black .subtitle,
         body.theme-black .bottom-item p {
             color: #ffffff;
         }
-
         body.theme-black .mouse-trail-star {
             background: #666666;
         }
@@ -51,16 +65,13 @@
         body.theme-green {
             background: linear-gradient(135deg, #001a0d 0%, #0d4d2d 25%, #198754 50%, #0d4d2d 75%, #001a0d 100%);
         }
-
         body.theme-green .main-title {
             color: #90ee90;
         }
-
         body.theme-green .subtitle,
         body.theme-green .bottom-item p {
             color: rgba(144, 238, 144, 0.9);
         }
-
         body.theme-green .mouse-trail-star {
             background: #90ee90;
         }
@@ -69,16 +80,13 @@
         body.theme-red {
             background: linear-gradient(135deg, #1a0000 0%, #4d0d0d 25%, #8b1a1a 50%, #4d0d0d 75%, #1a0000 100%);
         }
-
         body.theme-red .main-title {
             color: #ffb3b3;
         }
-
         body.theme-red .subtitle,
         body.theme-red .bottom-item p {
             color: rgba(255, 179, 179, 0.9);
         }
-
         body.theme-red .mouse-trail-star {
             background: #ff6b6b;
         }
@@ -89,738 +97,390 @@
             background-size: 400% 400%;
             animation: gradientShift 3s ease infinite;
         }
-
         body.theme-rambo .main-title {
             color: #ff0000;
             text-shadow: 0 0 20px #ff0000;
             animation: pulse 0.5s infinite;
         }
-
         body.theme-rambo .subtitle,
         body.theme-rambo .bottom-item p {
             color: rgba(255, 0, 0, 0.9);
         }
-
         body.theme-rambo .mouse-trail-star {
             background: #ff0000;
             animation: fadeOutStar 0.5s ease-out forwards;
         }
-
         body.theme-rambo .star {
             animation: twinkle 0.5s infinite;
         }
 
-        /* Ocean theme */
-        body.theme-ocean {
-            background: linear-gradient(135deg, #001a33 0%, #003d66 25%, #0066aa 50%, #003d66 75%, #001a33 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 12s ease infinite;
-        }
-
-        body.theme-ocean .main-title {
-            color: #00d9ff;
-            text-shadow: 0 0 15px #00d9ff;
-        }
-
-        body.theme-ocean .subtitle,
-        body.theme-ocean .bottom-item p {
-            color: rgba(0, 217, 255, 0.9);
-        }
-
-        body.theme-ocean .mouse-trail-star {
-            background: #00d9ff;
-        }
-
-        /* Sunset theme */
-        body.theme-sunset {
-            background: linear-gradient(135deg, #1a0a00 0%, #66330d 25%, #cc6600 50%, #cc3366 75%, #66194d 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 18s ease infinite;
-        }
-
-        body.theme-sunset .main-title {
-            color: #ffaa66;
-            text-shadow: 0 0 20px #ff6633;
-        }
-
-        body.theme-sunset .subtitle,
-        body.theme-sunset .bottom-item p {
-            color: rgba(255, 170, 102, 0.9);
-        }
-
-        body.theme-sunset .mouse-trail-star {
-            background: #ff8844;
-        }
-
-        /* Neon theme */
-        body.theme-neon {
-            background: linear-gradient(135deg, #0d0033 0%, #1a0066 25%, #330099 50%, #1a0066 75%, #0d0033 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-        }
-
-        body.theme-neon .main-title {
-            color: #00ffff;
-            text-shadow: 0 0 25px #00ffff, 0 0 50px #ff00ff;
-            animation: neonPulse 2s infinite;
-        }
-
-        body.theme-neon .subtitle,
-        body.theme-neon .bottom-item p {
-            color: #ff00ff;
-            text-shadow: 0 0 10px #ff00ff;
-        }
-
-        body.theme-neon .mouse-trail-star {
-            background: #00ffff;
-            box-shadow: 0 0 10px #00ffff;
-        }
-
-        @keyframes neonPulse {
-            0%, 100% { text-shadow: 0 0 25px #00ffff, 0 0 50px #ff00ff; }
-            50% { text-shadow: 0 0 35px #00ffff, 0 0 70px #ff00ff; }
-        }
-
-        /* Matrix theme */
-        body.theme-matrix {
-            background: linear-gradient(135deg, #000d00 0%, #001a00 25%, #003300 50%, #001a00 75%, #000d00 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 10s ease infinite;
-        }
-
-        body.theme-matrix .main-title {
-            color: #00ff00;
-            text-shadow: 0 0 20px #00ff00;
-            font-family: 'Courier New', monospace;
-            animation: matrixGlitch 3s infinite;
-        }
-
-        body.theme-matrix .subtitle,
-        body.theme-matrix .bottom-item p {
-            color: rgba(0, 255, 0, 0.9);
-            font-family: 'Courier New', monospace;
-        }
-
-        body.theme-matrix .mouse-trail-star {
-            background: #00ff00;
-        }
-
-        @keyframes matrixGlitch {
-            0%, 90%, 100% { transform: translateX(0); }
-            92% { transform: translateX(-2px); }
-            94% { transform: translateX(2px); }
-            96% { transform: translateX(-2px); }
-            98% { transform: translateX(2px); }
-        }
-
-        /* Fire theme */
-        body.theme-fire {
-            background: linear-gradient(135deg, #330000 0%, #661100 25%, #cc3300 50%, #ff6600 75%, #ffaa00 100%);
+        /* Cyberpunk theme - NEW CUSTOM */
+        body.theme-cyberpunk {
+            background: linear-gradient(135deg, #0a0015 0%, #1a0033 20%, #ff006e 40%, #ffbe0b 60%, #00f5ff 80%, #0a0015 100%);
             background-size: 400% 400%;
             animation: gradientShift 4s ease infinite;
         }
-
-        body.theme-fire .main-title {
-            color: #ffcc00;
-            text-shadow: 0 0 30px #ff6600, 0 0 60px #ff0000;
-            animation: fireFlicker 0.3s infinite;
+        body.theme-cyberpunk .main-title {
+            color: #00f5ff;
+            font-family: 'Audiowide', cursive;
+            text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 30px #ff006e, 0 0 40px #ff006e, 2px 2px 0px #ffbe0b, 4px 4px 0px #ff006e;
+            animation: cyberpunkFlicker 0.3s infinite alternate;
+            letter-spacing: 0.1em;
         }
-
-        body.theme-fire .subtitle,
-        body.theme-fire .bottom-item p {
-            color: rgba(255, 204, 0, 0.9);
+        body.theme-cyberpunk .subtitle {
+            color: #ffbe0b;
+            font-family: 'Audiowide', cursive;
+            font-size: 1.3rem;
+            text-shadow: 0 0 15px #ffbe0b, 2px 2px 0px #ff006e;
         }
-
-        body.theme-fire .mouse-trail-star {
-            background: #ff6600;
-            box-shadow: 0 0 15px #ff3300;
+        body.theme-cyberpunk .bottom-item p {
+            color: #00f5ff;
+            font-family: 'Iceland', cursive;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px #00f5ff;
         }
-
-        @keyframes fireFlicker {
+        body.theme-cyberpunk .mouse-trail-star {
+            background: #00f5ff;
+            box-shadow: 0 0 20px #00f5ff, 0 0 40px #ff006e;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes cyberpunkFlicker {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.95; }
         }
 
-        /* Ice theme */
-        body.theme-ice {
-            background: linear-gradient(135deg, #e6f5ff 0%, #b3d9ff 25%, #80c0ff 50%, #b3d9ff 75%, #e6f5ff 100%);
+        /* Arcade theme - NEW CUSTOM */
+        body.theme-arcade {
+            background: linear-gradient(135deg, #1a0033 0%, #330066 25%, #ff00ff 50%, #ffff00 75%, #00ffff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 3s linear infinite;
+        }
+        body.theme-arcade .main-title {
+            color: #ffff00;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 4px 4px 0px #ff00ff, 8px 8px 0px #00ffff, 0 0 20px #ffff00;
+            animation: arcadeBounce 0.5s infinite;
+            letter-spacing: 0.05em;
+            font-size: 4rem;
+        }
+        body.theme-arcade .subtitle {
+            color: #ff00ff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            text-shadow: 3px 3px 0px #00ffff;
+        }
+        body.theme-arcade .bottom-item p {
+            color: #00ffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            text-shadow: 2px 2px 0px #ff00ff;
+        }
+        body.theme-arcade .mouse-trail-star {
+            background: #ffff00;
+            box-shadow: 0 0 20px #ffff00, 0 0 40px #ff00ff;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes arcadeBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Synthwave theme - NEW CUSTOM */
+        body.theme-synthwave {
+            background: linear-gradient(135deg, #2b0a3d 0%, #ff0080 25%, #ff8c00 50%, #ff0080 75%, #2b0a3d 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+        }
+        body.theme-synthwave .main-title {
+            color: #ff0080;
+            font-family: 'Monoton', cursive;
+            text-shadow: 0 0 20px #ff0080, 0 0 40px #ff0080, 0 0 60px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
+            animation: synthwavePulse 2s infinite;
+            letter-spacing: 0.2em;
+        }
+        body.theme-synthwave .subtitle {
+            color: #ff8c00;
+            font-family: 'Righteous', cursive;
+            font-size: 1.4rem;
+            text-shadow: 0 0 15px #ff8c00, 0 3px 0px #8b00ff;
+        }
+        body.theme-synthwave .bottom-item p {
+            color: #8b00ff;
+            font-family: 'Righteous', cursive;
+            text-shadow: 0 0 10px #8b00ff;
+        }
+        body.theme-synthwave .mouse-trail-star {
+            background: #ff0080;
+            box-shadow: 0 0 25px #ff0080, 0 0 50px #ff8c00;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes synthwavePulse {
+            0%, 100% { 
+                text-shadow: 0 0 20px #ff0080, 0 0 40px #ff0080, 0 0 60px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
+            }
+            50% { 
+                text-shadow: 0 0 30px #ff0080, 0 0 60px #ff0080, 0 0 80px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
+            }
+        }
+
+        /* Hacker/Terminal theme - NEW CUSTOM */
+        body.theme-hacker {
+            background: linear-gradient(135deg, #000000 0%, #001a00 25%, #003300 50%, #001a00 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        body.theme-hacker .main-title {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+            animation: hackerType 4s steps(40) infinite;
+            letter-spacing: 0.1em;
+            border-right: 3px solid #00ff00;
+        }
+        body.theme-hacker .subtitle {
+            color: #33ff33;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px #33ff33;
+        }
+        body.theme-hacker .subtitle::before {
+            content: '> ';
+            color: #00ff00;
+        }
+        body.theme-hacker .bottom-item p {
+            color: #66ff66;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px #66ff66;
+        }
+        body.theme-hacker .mouse-trail-star {
+            background: #00ff00;
+            box-shadow: 0 0 15px #00ff00;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+        @keyframes hackerType {
+            0%, 100% { border-right-color: #00ff00; }
+            50% { border-right-color: transparent; }
+        }
+
+        /* Gothic theme - NEW CUSTOM */
+        body.theme-gothic {
+            background: linear-gradient(135deg, #0d0000 0%, #1a0000 25%, #4d0000 50%, #800000 75%, #0d0000 100%);
             background-size: 400% 400%;
             animation: gradientShift 20s ease infinite;
         }
-
-        body.theme-ice .main-title {
-            color: #0066cc;
-            text-shadow: 0 0 20px #66ccff;
+        body.theme-gothic .main-title {
+            color: #cc0000;
+            font-family: 'Creepster', cursive;
+            text-shadow: 0 0 30px #cc0000, 0 0 60px #800000, 5px 5px 0px #000000;
+            animation: gothicFloat 4s ease-in-out infinite;
+            letter-spacing: 0.15em;
+        }
+        body.theme-gothic .subtitle {
+            color: #ff3333;
+            font-family: 'Creepster', cursive;
+            font-size: 1.3rem;
+            text-shadow: 0 0 20px #ff3333, 3px 3px 0px #000000;
+        }
+        body.theme-gothic .bottom-item p {
+            color: #ff6666;
+            font-family: 'Creepster', cursive;
+            text-shadow: 0 0 10px #ff6666;
+        }
+        body.theme-gothic .mouse-trail-star {
+            background: #cc0000;
+            box-shadow: 0 0 25px #cc0000;
+            animation: fadeOutStar 0.8s ease-out forwards;
+        }
+        @keyframes gothicFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
-        body.theme-ice .subtitle,
-        body.theme-ice .bottom-item p {
-            color: #0066cc;
-        }
-
-        body.theme-ice .mouse-trail-star {
-            background: #66ccff;
-        }
-
-        body.theme-ice .icon img,
-        body.theme-ice .sidebar-item a img {
-            filter: brightness(0) invert(0.3) sepia(1) saturate(5) hue-rotate(180deg);
-        }
-
-        /* Galaxy theme */
-        body.theme-galaxy {
-            background: linear-gradient(135deg, #0d001a 0%, #1a0033 25%, #330066 50%, #660099 75%, #9900cc 100%);
+        /* Neon City theme - NEW CUSTOM */
+        body.theme-neoncity {
+            background: linear-gradient(135deg, #000033 0%, #660099 20%, #ff00cc 40%, #00ffff 60%, #ffff00 80%, #000033 100%);
             background-size: 400% 400%;
-            animation: gradientShift 14s ease infinite;
+            animation: gradientShift 5s ease infinite;
         }
-
-        body.theme-galaxy .main-title {
-            color: #ff66ff;
-            text-shadow: 0 0 25px #ff66ff, 0 0 50px #6666ff;
-            animation: galaxySpin 5s infinite;
-        }
-
-        body.theme-galaxy .subtitle,
-        body.theme-galaxy .bottom-item p {
-            color: rgba(255, 102, 255, 0.9);
-        }
-
-        body.theme-galaxy .mouse-trail-star {
-            background: #ff66ff;
-        }
-
-        @keyframes galaxySpin {
-            0%, 100% { text-shadow: 0 0 25px #ff66ff, 0 0 50px #6666ff; }
-            50% { text-shadow: 0 0 25px #6666ff, 0 0 50px #ff66ff; }
-        }
-
-        /* Gold theme */
-        body.theme-gold {
-            background: linear-gradient(135deg, #1a1300 0%, #332600 25%, #664d00 50%, #332600 75%, #1a1300 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 16s ease infinite;
-        }
-
-        body.theme-gold .main-title {
-            color: #ffd700;
-            text-shadow: 0 0 20px #ffaa00;
-            animation: goldShine 3s infinite;
-        }
-
-        body.theme-gold .subtitle,
-        body.theme-gold .bottom-item p {
-            color: rgba(255, 215, 0, 0.9);
-        }
-
-        body.theme-gold .mouse-trail-star {
-            background: #ffd700;
-        }
-
-        @keyframes goldShine {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.3); }
-        }
-
-        /* Turbo theme - Ultra fast rainbow */
-        body.theme-turbo {
-            background: linear-gradient(135deg, #ff0000 0%, #ff9900 10%, #ffff00 20%, #00ff00 30%, #00ffff 40%, #0000ff 50%, #9900ff 60%, #ff00ff 70%, #ff0066 80%, #ff0000 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 2s linear infinite;
-        }
-
-        body.theme-turbo .main-title {
+        body.theme-neoncity .main-title {
             color: #ffffff;
-            text-shadow: 0 0 30px #ff00ff, 0 0 60px #00ffff;
-            animation: turboShake 0.2s infinite;
+            font-family: 'Bungee Shade', cursive;
+            text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #ffff00;
+            animation: neonCityFlash 1s infinite alternate;
+            letter-spacing: 0.1em;
         }
-
-        body.theme-turbo .subtitle,
-        body.theme-turbo .bottom-item p {
-            color: #ffffff;
-            text-shadow: 0 0 15px #ff00ff;
+        body.theme-neoncity .subtitle {
+            color: #ff00cc;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.4rem;
+            text-shadow: 0 0 20px #ff00cc, 0 0 40px #00ffff;
         }
-
-        body.theme-turbo .mouse-trail-star {
-            background: #ffffff;
-            box-shadow: 0 0 20px #ff00ff;
-        }
-
-        @keyframes turboShake {
-            0%, 100% { transform: translateX(0) scale(1); }
-            25% { transform: translateX(-1px) scale(1.02); }
-            50% { transform: translateX(1px) scale(1); }
-            75% { transform: translateX(-1px) scale(0.98); }
-        }
-
-        /* Midnight theme */
-        body.theme-midnight {
-            background: linear-gradient(135deg, #000033 0%, #000066 25%, #003366 50%, #000066 75%, #000033 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 18s ease infinite;
-        }
-
-        body.theme-midnight .main-title {
-            color: #6699ff;
-            text-shadow: 0 0 20px #3366cc;
-        }
-
-        body.theme-midnight .subtitle,
-        body.theme-midnight .bottom-item p {
-            color: rgba(102, 153, 255, 0.9);
-        }
-
-        body.theme-midnight .mouse-trail-star {
-            background: #6699ff;
-        }
-
-        /* Cyan theme - FAST */
-        body.theme-cyan {
-            background: linear-gradient(135deg, #001a1a 0%, #003333 25%, #00cccc 50%, #00ffff 75%, #66ffff 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        body.theme-cyan .main-title {
+        body.theme-neoncity .bottom-item p {
             color: #00ffff;
-            text-shadow: 0 0 30px #00ffff, 0 0 60px #00cccc;
-            animation: pulse 0.6s infinite;
+            font-family: 'Russo One', sans-serif;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        body.theme-neoncity .mouse-trail-star {
+            background: #ff00cc;
+            box-shadow: 0 0 30px #ff00cc, 0 0 60px #00ffff;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes neonCityFlash {
+            0% { 
+                text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #ffff00;
+            }
+            100% { 
+                text-shadow: 0 0 20px #ff00cc, 0 0 40px #ff00cc, 0 0 60px #00ffff, 0 0 80px #00ffff, 0 0 100px #ffff00;
+            }
         }
 
-        body.theme-cyan .subtitle,
-        body.theme-cyan .bottom-item p {
-            color: rgba(0, 255, 255, 0.9);
-        }
-
-        body.theme-cyan .mouse-trail-star {
-            background: #00ffff;
-            box-shadow: 0 0 15px #00ffff;
-        }
-
-        /* Lime theme - FAST */
-        body.theme-lime {
-            background: linear-gradient(135deg, #0d1a00 0%, #264d00 25%, #4d9900 50%, #80ff00 75%, #b3ff66 100%);
+        /* Retro Wave theme - NEW CUSTOM */
+        body.theme-retrowave {
+            background: linear-gradient(135deg, #000000 0%, #ff006e 25%, #8338ec 50%, #3a86ff 75%, #000000 100%);
             background-size: 400% 400%;
-            animation: gradientShift 2.5s ease infinite;
+            animation: gradientShift 7s ease infinite;
+        }
+        body.theme-retrowave .main-title {
+            color: #ff006e;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 3px 3px 0px #8338ec, 6px 6px 0px #3a86ff, 0 0 30px #ff006e;
+            animation: retroWaveShift 3s infinite;
+            letter-spacing: 0.12em;
+        }
+        body.theme-retrowave .subtitle {
+            color: #8338ec;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            text-shadow: 2px 2px 0px #3a86ff, 0 0 20px #8338ec;
+        }
+        body.theme-retrowave .bottom-item p {
+            color: #3a86ff;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 0 0 15px #3a86ff;
+        }
+        body.theme-retrowave .mouse-trail-star {
+            background: #ff006e;
+            box-shadow: 0 0 25px #ff006e, 0 0 50px #8338ec;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes retroWaveShift {
+            0%, 100% {
+                text-shadow: 3px 3px 0px #8338ec, 6px 6px 0px #3a86ff, 0 0 30px #ff006e;
+            }
+            50% {
+                text-shadow: -3px 3px 0px #8338ec, 6px -6px 0px #3a86ff, 0 0 40px #ff006e;
+            }
         }
 
-        body.theme-lime .main-title {
-            color: #ccff00;
-            text-shadow: 0 0 35px #ccff00, 0 0 70px #80ff00;
-            animation: pulse 0.4s infinite;
-        }
-
-        body.theme-lime .subtitle,
-        body.theme-lime .bottom-item p {
-            color: rgba(204, 255, 0, 0.9);
-        }
-
-        body.theme-lime .mouse-trail-star {
-            background: #ccff00;
-            box-shadow: 0 0 20px #ccff00;
-            animation: fadeOutStar 0.6s ease-out forwards;
-        }
-
-        /* Pink theme - FAST */
-        body.theme-pink {
-            background: linear-gradient(135deg, #1a0011 0%, #4d0033 25%, #cc0066 50%, #ff66b3 75%, #ffb3d9 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        body.theme-pink .main-title {
-            color: #ff66cc;
-            text-shadow: 0 0 25px #ff66cc, 0 0 50px #ff0099;
-            animation: pulse 0.5s infinite;
-        }
-
-        body.theme-pink .subtitle,
-        body.theme-pink .bottom-item p {
-            color: rgba(255, 102, 204, 0.9);
-        }
-
-        body.theme-pink .mouse-trail-star {
-            background: #ff66cc;
-            box-shadow: 0 0 15px #ff66cc;
-        }
-
-        /* Orange theme - FAST */
-        body.theme-orange {
-            background: linear-gradient(135deg, #1a0d00 0%, #4d2600 25%, #ff6600 50%, #ff9933 75%, #ffcc66 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        body.theme-orange .main-title {
-            color: #ff9933;
-            text-shadow: 0 0 30px #ff6600, 0 0 60px #ff3300;
-            animation: pulse 0.5s infinite;
-        }
-
-        body.theme-orange .subtitle,
-        body.theme-orange .bottom-item p {
-            color: rgba(255, 153, 51, 0.9);
-        }
-
-        body.theme-orange .mouse-trail-star {
-            background: #ff9933;
-            box-shadow: 0 0 20px #ff6600;
-        }
-
-        /* Purple Plasma theme - FAST */
-        body.theme-purple {
-            background: linear-gradient(135deg, #1a0033 0%, #4d0099 25%, #9900ff 50%, #cc66ff 75%, #e6b3ff 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 2s ease infinite;
-        }
-
-        body.theme-purple .main-title {
-            color: #cc66ff;
-            text-shadow: 0 0 35px #cc66ff, 0 0 70px #9900ff;
-            animation: pulse 0.4s infinite;
-        }
-
-        body.theme-purple .subtitle,
-        body.theme-purple .bottom-item p {
-            color: rgba(204, 102, 255, 0.9);
-        }
-
-        body.theme-purple .mouse-trail-star {
-            background: #cc66ff;
-            box-shadow: 0 0 20px #cc66ff;
-            animation: fadeOutStar 0.5s ease-out forwards;
-        }
-
-        /* Aurora theme */
-        body.theme-aurora {
-            background: linear-gradient(135deg, #001a1a 0%, #004d66 25%, #00ff99 50%, #66ffcc 75%, #00ccff 100%);
+        /* Cosmic theme - NEW CUSTOM */
+        body.theme-cosmic {
+            background: linear-gradient(135deg, #000000 0%, #1a0033 20%, #4d0099 40%, #9900ff 60%, #ff00ff 80%, #000000 100%);
             background-size: 400% 400%;
             animation: gradientShift 10s ease infinite;
         }
-
-        body.theme-aurora .main-title {
-            color: #00ffcc;
-            text-shadow: 0 0 30px #00ffcc, 0 0 60px #00ff99;
-            animation: pulse 1s infinite;
+        body.theme-cosmic .main-title {
+            color: #ff00ff;
+            font-family: 'Black Ops One', cursive;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #9900ff, 0 0 60px #4d0099, 0 0 80px #1a0033;
+            animation: cosmicSpin 5s linear infinite;
+            letter-spacing: 0.15em;
         }
-
-        body.theme-aurora .subtitle,
-        body.theme-aurora .bottom-item p {
-            color: rgba(0, 255, 204, 0.9);
+        body.theme-cosmic .subtitle {
+            color: #9900ff;
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.2rem;
+            text-shadow: 0 0 25px #9900ff;
         }
-
-        body.theme-aurora .mouse-trail-star {
-            background: #00ffcc;
-            box-shadow: 0 0 15px #00ffcc;
+        body.theme-cosmic .bottom-item p {
+            color: #ff00ff;
+            font-family: 'Black Ops One', cursive;
+            font-size: 0.85rem;
+            text-shadow: 0 0 15px #ff00ff;
         }
-
-        /* Toxic theme - FAST */
-        body.theme-toxic {
-            background: linear-gradient(135deg, #0d1a00 0%, #1a3300 25%, #66ff00 50%, #ccff00 75%, #ffff66 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 2s ease infinite;
-        }
-
-        body.theme-toxic .main-title {
-            color: #ccff00;
-            text-shadow: 0 0 40px #ccff00, 0 0 80px #66ff00;
-            animation: pulse 0.3s infinite;
-        }
-
-        body.theme-toxic .subtitle,
-        body.theme-toxic .bottom-item p {
-            color: rgba(204, 255, 0, 0.9);
-        }
-
-        body.theme-toxic .mouse-trail-star {
-            background: #ccff00;
-            box-shadow: 0 0 25px #ccff00;
-            animation: fadeOutStar 0.4s ease-out forwards;
-        }
-
-        /* Electric theme - ULTRA FAST */
-        body.theme-electric {
-            background: linear-gradient(135deg, #000033 0%, #0066ff 20%, #00ffff 40%, #ffff00 60%, #ff00ff 80%, #0066ff 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 1.5s linear infinite;
-        }
-
-        body.theme-electric .main-title {
-            color: #ffffff;
-            text-shadow: 0 0 40px #00ffff, 0 0 80px #ff00ff, 0 0 120px #ffff00;
-            animation: turboShake 0.15s infinite;
-        }
-
-        body.theme-electric .subtitle,
-        body.theme-electric .bottom-item p {
-            color: #ffffff;
-            text-shadow: 0 0 20px #00ffff;
-        }
-
-        body.theme-electric .mouse-trail-star {
-            background: #00ffff;
-            box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff;
-            animation: fadeOutStar 0.3s ease-out forwards;
-        }
-
-        /* Magma theme - FAST */
-        body.theme-magma {
-            background: linear-gradient(135deg, #1a0000 0%, #4d0000 25%, #ff3300 50%, #ff6600 75%, #ffcc00 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        body.theme-magma .main-title {
-            color: #ff9900;
-            text-shadow: 0 0 35px #ff6600, 0 0 70px #ff0000;
-            animation: fireFlicker 0.2s infinite;
-        }
-
-        body.theme-magma .subtitle,
-        body.theme-magma .bottom-item p {
-            color: rgba(255, 153, 0, 0.9);
-        }
-
-        body.theme-magma .mouse-trail-star {
-            background: #ff6600;
-            box-shadow: 0 0 25px #ff3300;
+        body.theme-cosmic .mouse-trail-star {
+            background: #ff00ff;
+            box-shadow: 0 0 30px #ff00ff, 0 0 60px #9900ff;
             animation: fadeOutStar 0.5s ease-out forwards;
         }
-
-        /* Arctic theme */
-        body.theme-arctic {
-            background: linear-gradient(135deg, #e6f9ff 0%, #b3e6ff 25%, #66d9ff 50%, #b3e6ff 75%, #e6f9ff 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 22s ease infinite;
+        @keyframes cosmicSpin {
+            0% {
+                text-shadow: 0 0 20px #ff00ff, 0 0 40px #9900ff, 0 0 60px #4d0099, 0 0 80px #1a0033;
+            }
+            50% {
+                text-shadow: 0 0 40px #ff00ff, 0 0 60px #9900ff, 0 0 80px #4d0099, 0 0 100px #1a0033;
+            }
+            100% {
+                text-shadow: 0 0 20px #ff00ff, 0 0 40px #9900ff, 0 0 60px #4d0099, 0 0 80px #1a0033;
+            }
         }
 
-        body.theme-arctic .main-title {
-            color: #0099cc;
-            text-shadow: 0 0 25px #66d9ff;
-        }
-
-        body.theme-arctic .subtitle,
-        body.theme-arctic .bottom-item p {
-            color: #0099cc;
-        }
-
-        body.theme-arctic .mouse-trail-star {
-            background: #66d9ff;
-        }
-
-        body.theme-arctic .icon img,
-        body.theme-arctic .sidebar-item a img {
-            filter: brightness(0) invert(0.3) sepia(1) saturate(5) hue-rotate(180deg);
-        }
-
-        /* Crimson theme - FAST */
-        body.theme-crimson {
-            background: linear-gradient(135deg, #1a0000 0%, #4d0011 25%, #cc0033 50%, #ff3366 75%, #ff6699 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 2.5s ease infinite;
-        }
-
-        body.theme-crimson .main-title {
-            color: #ff3366;
-            text-shadow: 0 0 35px #ff3366, 0 0 70px #cc0033;
-            animation: pulse 0.4s infinite;
-        }
-
-        body.theme-crimson .subtitle,
-        body.theme-crimson .bottom-item p {
-            color: rgba(255, 51, 102, 0.9);
-        }
-
-        body.theme-crimson .mouse-trail-star {
-            background: #ff3366;
-            box-shadow: 0 0 20px #ff3366;
-            animation: fadeOutStar 0.5s ease-out forwards;
-        }
-
-        /* Emerald theme */
-        body.theme-emerald {
-            background: linear-gradient(135deg, #001a0d 0%, #00331a 25%, #00cc66 50%, #33ff99 75%, #99ffcc 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 12s ease infinite;
-        }
-
-        body.theme-emerald .main-title {
-            color: #00ff99;
-            text-shadow: 0 0 25px #00ff99;
-        }
-
-        body.theme-emerald .subtitle,
-        body.theme-emerald .bottom-item p {
-            color: rgba(0, 255, 153, 0.9);
-        }
-
-        body.theme-emerald .mouse-trail-star {
-            background: #00ff99;
-        }
-
-        /* Sapphire theme */
-        body.theme-sapphire {
-            background: linear-gradient(135deg, #000d1a 0%, #001a4d 25%, #0066cc 50%, #3399ff 75%, #99ccff 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 14s ease infinite;
-        }
-
-        body.theme-sapphire .main-title {
-            color: #3399ff;
-            text-shadow: 0 0 25px #3399ff;
-        }
-
-        body.theme-sapphire .subtitle,
-        body.theme-sapphire .bottom-item p {
-            color: rgba(51, 153, 255, 0.9);
-        }
-
-        body.theme-sapphire .mouse-trail-star {
-            background: #3399ff;
-        }
-
-        /* Ruby theme - FAST */
-        body.theme-ruby {
-            background: linear-gradient(135deg, #1a0000 0%, #4d0011 25%, #990033 50%, #ff0066 75%, #ff99cc 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        body.theme-ruby .main-title {
-            color: #ff0066;
-            text-shadow: 0 0 30px #ff0066, 0 0 60px #990033;
-            animation: pulse 0.5s infinite;
-        }
-
-        body.theme-ruby .subtitle,
-        body.theme-ruby .bottom-item p {
-            color: rgba(255, 0, 102, 0.9);
-        }
-
-        body.theme-ruby .mouse-trail-star {
-            background: #ff0066;
-            box-shadow: 0 0 20px #ff0066;
-            animation: fadeOutStar 0.6s ease-out forwards;
-        }
-
-        /* Amber theme */
-        body.theme-amber {
-            background: linear-gradient(135deg, #1a1000 0%, #4d3300 25%, #cc8800 50%, #ffaa00 75%, #ffdd99 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        body.theme-amber .main-title {
-            color: #ffaa00;
-            text-shadow: 0 0 25px #ffaa00;
-            animation: goldShine 3s infinite;
-        }
-
-        body.theme-amber .subtitle,
-        body.theme-amber .bottom-item p {
-            color: rgba(255, 170, 0, 0.9);
-        }
-
-        body.theme-amber .mouse-trail-star {
-            background: #ffaa00;
-        }
-
-        /* Vaporwave theme - CUSTOM THEME */
+        /* Vaporwave theme */
         body.theme-vaporwave {
             background: linear-gradient(135deg, #ff71ce 0%, #01cdfe 20%, #05ffa1 40%, #b967ff 60%, #fffb96 80%, #ff71ce 100%);
             background-size: 400% 400%;
             animation: gradientShift 5s ease infinite;
         }
-
         body.theme-vaporwave .main-title {
             color: #ff71ce;
             font-family: 'Orbitron', sans-serif;
-            text-shadow:
-                3px 3px 0px #01cdfe,
-                6px 6px 0px #05ffa1,
-                9px 9px 0px #b967ff;
+            text-shadow: 3px 3px 0px #01cdfe, 6px 6px 0px #05ffa1, 9px 9px 0px #b967ff;
             animation: vaporwaveGlitch 4s infinite;
             letter-spacing: 0.15em;
         }
-
         body.theme-vaporwave .subtitle {
             color: #01cdfe;
             font-family: 'VT323', monospace;
             font-size: 1.5rem;
             text-shadow: 2px 2px 0px #ff71ce;
         }
-
         body.theme-vaporwave .bottom-item p {
             color: #fffb96;
             font-family: 'VT323', monospace;
             text-shadow: 1px 1px 0px #b967ff;
         }
-
         body.theme-vaporwave .mouse-trail-star {
             background: #ff71ce;
             box-shadow: 0 0 20px #ff71ce, 0 0 40px #01cdfe;
             animation: fadeOutStar 0.4s ease-out forwards;
         }
-
-        body.theme-vaporwave .sidebar-item-descriptor {
-            font-family: 'VT323', monospace;
-            background: rgba(255, 113, 206, 0.9);
-            color: #000;
-            font-size: 1rem;
-        }
-
-        body.theme-vaporwave .icon:hover {
-            background: rgba(1, 205, 254, 0.2);
-            box-shadow: 0 0 20px #01cdfe;
-        }
-
-        body.theme-vaporwave .star {
-            background: linear-gradient(45deg, #ff71ce, #01cdfe);
-            animation: vaporwaveTwinkle 2s infinite;
-        }
-
         @keyframes vaporwaveGlitch {
             0%, 90%, 100% {
                 transform: translateX(0) skew(0deg);
-                text-shadow:
-                    3px 3px 0px #01cdfe,
-                    6px 6px 0px #05ffa1,
-                    9px 9px 0px #b967ff;
+                text-shadow: 3px 3px 0px #01cdfe, 6px 6px 0px #05ffa1, 9px 9px 0px #b967ff;
             }
             91% {
                 transform: translateX(-5px) skew(-2deg);
-                text-shadow:
-                    -3px 3px 0px #01cdfe,
-                    6px -6px 0px #05ffa1,
-                    -9px 9px 0px #b967ff;
+                text-shadow: -3px 3px 0px #01cdfe, 6px -6px 0px #05ffa1, -9px 9px 0px #b967ff;
             }
             93% {
                 transform: translateX(5px) skew(2deg);
-                text-shadow:
-                    3px -3px 0px #01cdfe,
-                    -6px 6px 0px #05ffa1,
-                    9px -9px 0px #b967ff;
+                text-shadow: 3px -3px 0px #01cdfe, -6px 6px 0px #05ffa1, 9px -9px 0px #b967ff;
             }
             95% {
                 transform: translateX(-3px) skew(-1deg);
             }
         }
 
-        @keyframes vaporwaveTwinkle {
-            0%, 100% {
-                opacity: 0.4;
-                transform: scale(1) rotate(0deg);
-                box-shadow: 0 0 10px #ff71ce;
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.5) rotate(180deg);
-                box-shadow: 0 0 20px #01cdfe, 0 0 30px #ff71ce;
-            }
-        }
-
+        /* Common animations */
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
+        }
+
+        @keyframes fadeOutStar {
+            0% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(180deg);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .stars {
@@ -850,11 +510,6 @@
             background: rgba(235, 218, 244, 0.8);
             border-radius: 50%;
             animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .mobile-warning {
@@ -1059,17 +714,6 @@
             animation: fadeOutStar 1.5s ease-out forwards;
         }
 
-        @keyframes fadeOutStar {
-            0% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.3) rotate(180deg);
-            }
-        }
-
         .theme-indicator {
             position: fixed;
             bottom: 20px;
@@ -1182,7 +826,7 @@
 
     <div id="bottom-menu">
         <div class="bottom-item">
-            <p id="online">currently online: 1223</p>
+            <p id="online">currently online: <span class="online-count">1223</span></p>
         </div>
         <div class="bottom-item">
             <p>|</p>
@@ -1218,7 +862,7 @@
 
         // Theme management
         let currentTheme = 'normal';
-        const themes = ['normal', 'black', 'green', 'red', 'rambo', 'ocean', 'sunset', 'neon', 'matrix', 'fire', 'ice', 'galaxy', 'gold', 'turbo', 'midnight', 'cyan', 'lime', 'pink', 'orange', 'purple', 'aurora', 'toxic', 'electric', 'magma', 'arctic', 'crimson', 'emerald', 'sapphire', 'ruby', 'amber', 'vaporwave'];
+        const themes = ['normal', 'black', 'green', 'red', 'rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'gothic', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
 
         const themeColors = {
             normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
@@ -1226,35 +870,18 @@
             green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144', speed: 1 },
             red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102', speed: 1 },
             rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 },
-            ocean: { particle: 'rgba(0, 217, 255, 0.6)', line: '0, 217, 255', speed: 1.5 },
-            sunset: { particle: 'rgba(255, 136, 68, 0.6)', line: '255, 136, 68', speed: 1.2 },
-            neon: { particle: 'rgba(0, 255, 255, 0.8)', line: '0, 255, 255', speed: 2 },
-            matrix: { particle: 'rgba(0, 255, 0, 0.7)', line: '0, 255, 0', speed: 2.5 },
-            fire: { particle: 'rgba(255, 102, 0, 0.8)', line: '255, 102, 0', speed: 4 },
-            ice: { particle: 'rgba(102, 204, 255, 0.6)', line: '102, 204, 255', speed: 0.8 },
-            galaxy: { particle: 'rgba(255, 102, 255, 0.7)', line: '255, 102, 255', speed: 1.3 },
-            gold: { particle: 'rgba(255, 215, 0, 0.7)', line: '255, 215, 0', speed: 1 },
-            turbo: { particle: 'rgba(255, 255, 255, 0.9)', line: '255, 0, 255', speed: 8 },
-            midnight: { particle: 'rgba(102, 153, 255, 0.6)', line: '102, 153, 255', speed: 1 },
-            cyan: { particle: 'rgba(0, 255, 255, 0.8)', line: '0, 255, 255', speed: 5 },
-            lime: { particle: 'rgba(204, 255, 0, 0.9)', line: '204, 255, 0', speed: 6 },
-            pink: { particle: 'rgba(255, 102, 204, 0.8)', line: '255, 102, 204', speed: 5 },
-            orange: { particle: 'rgba(255, 153, 51, 0.8)', line: '255, 153, 51', speed: 5 },
-            purple: { particle: 'rgba(204, 102, 255, 0.9)', line: '204, 102, 255', speed: 6 },
-            aurora: { particle: 'rgba(0, 255, 204, 0.7)', line: '0, 255, 204', speed: 1.5 },
-            toxic: { particle: 'rgba(204, 255, 0, 0.9)', line: '204, 255, 0', speed: 7 },
-            electric: { particle: 'rgba(255, 255, 255, 0.95)', line: '0, 255, 255', speed: 10 },
-            magma: { particle: 'rgba(255, 102, 0, 0.9)', line: '255, 102, 0', speed: 5 },
-            arctic: { particle: 'rgba(102, 217, 255, 0.6)', line: '102, 217, 255', speed: 0.9 },
-            crimson: { particle: 'rgba(255, 51, 102, 0.8)', line: '255, 51, 102', speed: 6 },
-            emerald: { particle: 'rgba(0, 255, 153, 0.7)', line: '0, 255, 153', speed: 1.4 },
-            sapphire: { particle: 'rgba(51, 153, 255, 0.7)', line: '51, 153, 255', speed: 1.3 },
-            ruby: { particle: 'rgba(255, 0, 102, 0.8)', line: '255, 0, 102', speed: 5 },
-            amber: { particle: 'rgba(255, 170, 0, 0.7)', line: '255, 170, 0', speed: 1.1 },
+            cyberpunk: { particle: 'rgba(0, 245, 255, 0.8)', line: '0, 245, 255', speed: 4 },
+            arcade: { particle: 'rgba(255, 255, 0, 0.9)', line: '255, 0, 255', speed: 5 },
+            synthwave: { particle: 'rgba(255, 0, 128, 0.8)', line: '255, 0, 128', speed: 3 },
+            hacker: { particle: 'rgba(0, 255, 0, 0.7)', line: '0, 255, 0', speed: 2.5 },
+            gothic: { particle: 'rgba(204, 0, 0, 0.7)', line: '204, 0, 0', speed: 1 },
+            neoncity: { particle: 'rgba(255, 0, 204, 0.9)', line: '0, 255, 255', speed: 4 },
+            retrowave: { particle: 'rgba(255, 0, 110, 0.8)', line: '131, 56, 236', speed: 3 },
+            cosmic: { particle: 'rgba(255, 0, 255, 0.8)', line: '255, 0, 255', speed: 2 },
             vaporwave: { particle: 'rgba(255, 113, 206, 0.9)', line: '1, 205, 254', speed: 4 }
         };
 
-        // Particle system with mouse interaction
+        // Particle system
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1262,7 +889,6 @@
         const connectionDistance = 150;
         const particleCount = 80;
 
-        // Set canvas size
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -1270,7 +896,6 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Particle class
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -1285,7 +910,6 @@
                 this.x += this.baseVx * speedMultiplier;
                 this.y += this.baseVy * speedMultiplier;
 
-                // Wrap around edges
                 if (this.x < 0) this.x = canvas.width;
                 if (this.x > canvas.width) this.x = 0;
                 if (this.y < 0) this.y = canvas.height;
@@ -1300,32 +924,28 @@
             }
         }
 
-        // Initialize particles
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
         }
 
-        // Animation loop
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Update and draw particles
             for (const particle of particles) {
                 particle.update();
                 particle.draw();
 
-                // Draw line to mouse if close enough
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = mouse.x - particle.x;
                     const dy = mouse.y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const currentConnectionDistance = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'].includes(currentTheme) ? 250 : connectionDistance;
+                    const currentConnectionDistance = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'neoncity', 'retrowave', 'vaporwave'].includes(currentTheme) ? 250 : connectionDistance;
                     if (distance < currentConnectionDistance) {
                         const opacity = 1 - (distance / currentConnectionDistance);
-                        const lineOpacity = ['rambo', 'fire', 'turbo', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'].includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
+                        const lineOpacity = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 2 : 1;
+                        ctx.lineWidth = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? 2 : 1;
                         ctx.beginPath();
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(mouse.x, mouse.y);
@@ -1334,19 +954,18 @@
                 }
             }
 
-            // Connect nearby particles to each other
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const particleConnectionDistance = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 150 : 100;
+                    const particleConnectionDistance = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? 150 : 100;
                     if (distance < particleConnectionDistance) {
                         const opacity = 1 - (distance / particleConnectionDistance);
-                        const lineOpacity = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
+                        const lineOpacity = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 1.5 : 0.5;
+                        ctx.lineWidth = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? 1.5 : 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -1362,19 +981,16 @@
         // Mouse trail effect
         let mouseTrailTimeout;
         document.addEventListener('mousemove', function(e) {
-            // Update mouse position for particle system
             mouse.x = e.clientX;
             mouse.y = e.clientY;
 
-            // Throttle the trail creation
             if (mouseTrailTimeout) return;
 
-            const throttleTime = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'].includes(currentTheme) ? 20 : 50;
+            const throttleTime = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'].includes(currentTheme) ? 20 : 50;
             mouseTrailTimeout = setTimeout(function() {
                 mouseTrailTimeout = null;
             }, throttleTime);
 
-            // Create trail star
             const star = document.createElement('div');
             star.className = 'mouse-trail-star';
             star.style.left = (e.clientX - 6) + 'px';
@@ -1382,8 +998,7 @@
 
             document.body.appendChild(star);
 
-            // Remove star after animation completes
-            const removeTime = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 500 : 1500;
+            const removeTime = ['rambo', 'cyberpunk', 'arcade', 'vaporwave'].includes(currentTheme) ? 500 : 1500;
             setTimeout(function() {
                 star.remove();
             }, removeTime);
@@ -1404,14 +1019,21 @@
             timeElement.textContent = displayHours + ':' + minutes + ':' + seconds + ' ' + ampm;
         }
 
-        // Random online count variation
+        // Update online count with animation
         function updateOnlineCount() {
-            const onlineElement = document.getElementById('online');
-            if (!onlineElement) return;
+            const onlineCountElement = document.querySelector('.online-count');
+            if (!onlineCountElement) return;
 
             const baseCount = 1223;
-            const variation = Math.floor(Math.random() * 10) - 5;
-            onlineElement.textContent = 'currently online: ' + (baseCount + variation);
+            const variation = Math.floor(Math.random() * 20) - 10;
+            const newCount = baseCount + variation;
+
+            onlineCountElement.classList.add('updating');
+            onlineCountElement.textContent = newCount;
+
+            setTimeout(function() {
+                onlineCountElement.classList.remove('updating');
+            }, 300);
         }
 
         // Show theme indicator
@@ -1429,7 +1051,6 @@
             }, 2000);
         }
 
-        // Open games page function
         function openGamesPage() {
             const loadingGame = document.querySelector('.loading-game');
             if (loadingGame) {
@@ -1445,7 +1066,6 @@
             }
         }
 
-        // Open Discord function
         function openDiscord() {
             const discordUrl = 'https://discord.gg/aQ8YSn79xQ';
             const newWindow = window.open(discordUrl, '_blank');
@@ -1454,7 +1074,6 @@
             }
         }
 
-        // Open Steam profile function
         function openSteamProfile() {
             const steamUrl = 'https://steamcommunity.com/profiles/76561199703728458/';
             const newWindow = window.open(steamUrl, '_blank');
@@ -1463,7 +1082,6 @@
             }
         }
 
-        // Open GitHub profile function
         function openGitHubProfile() {
             const githubUrl = 'https://github.com/artinRahm';
             const newWindow = window.open(githubUrl, '_blank');
@@ -1472,7 +1090,6 @@
             }
         }
 
-        // Open Apps page function
         function openAppsPage() {
             const appsUrl = 'https://artinrahm.github.io/clloover/';
             const newWindow = window.open(appsUrl, '_blank');
@@ -1481,7 +1098,6 @@
             }
         }
 
-        // Open Info/Repository page function
         function openInfoPage() {
             const infoUrl = 'https://github.com/artinRahm/artinrahm.github.io/tree/main';
             const newWindow = window.open(infoUrl, '_blank');
@@ -1490,46 +1106,35 @@
             }
         }
 
-        // Change theme function
         function changeTheme() {
             const currentIndex = themes.indexOf(currentTheme);
             const nextIndex = (currentIndex + 1) % themes.length;
             const nextTheme = themes[nextIndex];
 
-            // Remove current theme class
             if (currentTheme !== 'normal') {
                 document.body.classList.remove('theme-' + currentTheme);
             }
 
-            // Add new theme class
             if (nextTheme !== 'normal') {
                 document.body.classList.add('theme-' + nextTheme);
             }
 
-            // Add more particles for fast themes
-            const fastThemes = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'];
+            const fastThemes = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
             if (fastThemes.includes(nextTheme) && !fastThemes.includes(currentTheme)) {
-                const extraParticles = nextTheme === 'turbo' || nextTheme === 'electric' ? 150 : 120;
+                const extraParticles = nextTheme === 'arcade' || nextTheme === 'vaporwave' ? 150 : 120;
                 for (let i = 0; i < extraParticles; i++) {
                     particles.push(new Particle());
                 }
             }
-            // Remove extra particles when leaving fast themes
             else if (fastThemes.includes(currentTheme) && !fastThemes.includes(nextTheme)) {
                 particles = particles.slice(0, particleCount);
             }
 
-            // Update current theme
             currentTheme = nextTheme;
-
-            // Save theme preference
             localStorage.setItem('selectedTheme', currentTheme);
-
-            // Show theme indicator
             showThemeIndicator(currentTheme);
         }
 
-        // Load saved theme on page load
         function loadTheme() {
             const savedTheme = localStorage.getItem('selectedTheme');
             if (savedTheme && themes.includes(savedTheme)) {
@@ -1537,10 +1142,9 @@
                 if (currentTheme !== 'normal') {
                     document.body.classList.add('theme-' + currentTheme);
                 }
-                // Add extra particles for fast themes
-                const fastThemes = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'];
+                const fastThemes = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
                 if (fastThemes.includes(currentTheme)) {
-                    const extraParticles = currentTheme === 'turbo' || currentTheme === 'electric' ? 150 : 120;
+                    const extraParticles = currentTheme === 'arcade' || currentTheme === 'vaporwave' ? 150 : 120;
                     for (let i = 0; i < extraParticles; i++) {
                         particles.push(new Particle());
                     }
@@ -1548,14 +1152,12 @@
             }
         }
 
-        // Setup event listeners
         document.addEventListener('DOMContentLoaded', function() {
             loadTheme();
             createStars();
             updateTime();
             updateOnlineCount();
 
-            // Games link in sidebar
             const gamesLink = document.getElementById('games-link');
             if (gamesLink) {
                 gamesLink.addEventListener('click', function(e) {
@@ -1564,7 +1166,6 @@
                 });
             }
 
-            // Center game icon
             const centerGameIcon = document.getElementById('center-game-icon');
             if (centerGameIcon) {
                 centerGameIcon.addEventListener('click', function(e) {
@@ -1573,7 +1174,6 @@
                 });
             }
 
-            // User/Steam icon
             const userIcon = document.getElementById('user-icon');
             if (userIcon) {
                 userIcon.addEventListener('click', function(e) {
@@ -1582,7 +1182,6 @@
                 });
             }
 
-            // Discord icon
             const discordIcon = document.getElementById('discord-icon');
             if (discordIcon) {
                 discordIcon.addEventListener('click', function(e) {
@@ -1591,7 +1190,6 @@
                 });
             }
 
-            // Open blank button
             const openBlankBtn = document.getElementById('openblank');
             if (openBlankBtn) {
                 openBlankBtn.addEventListener('click', function(e) {
@@ -1600,7 +1198,6 @@
                 });
             }
 
-            // Fullscreen button
             const fullscreenBtn = document.getElementById('fullscreen');
             if (fullscreenBtn) {
                 fullscreenBtn.addEventListener('click', function(e) {
@@ -1616,7 +1213,6 @@
                 });
             }
 
-            // User profile button (GitHub)
             const userProfileLink = document.getElementById('user-profile-link');
             if (userProfileLink) {
                 userProfileLink.addEventListener('click', function(e) {
@@ -1625,7 +1221,6 @@
                 });
             }
 
-            // Settings button (Theme switcher)
             const settingsLink = document.getElementById('settings-link');
             if (settingsLink) {
                 settingsLink.addEventListener('click', function(e) {
@@ -1634,7 +1229,6 @@
                 });
             }
 
-            // Apps button
             const appsLink = document.getElementById('apps-link');
             if (appsLink) {
                 appsLink.addEventListener('click', function(e) {
@@ -1643,7 +1237,6 @@
                 });
             }
 
-            // Info button
             const infoLinks = document.querySelectorAll('[data-target="/info"]');
             infoLinks.forEach(function(infoLink) {
                 infoLink.addEventListener('click', function(e) {
@@ -1652,10 +1245,7 @@
                 });
             });
 
-            // Update time every second
             setInterval(updateTime, 1000);
-
-            // Randomly update online count every 10 seconds
             setInterval(updateOnlineCount, 10000);
         });
     </script>
