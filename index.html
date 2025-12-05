@@ -6,6 +6,7 @@
     <title>clover!</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap');
 
         * {
             margin: 0;
@@ -723,6 +724,100 @@
             background: #ffaa00;
         }
 
+        /* Vaporwave theme - CUSTOM THEME */
+        body.theme-vaporwave {
+            background: linear-gradient(135deg, #ff71ce 0%, #01cdfe 20%, #05ffa1 40%, #b967ff 60%, #fffb96 80%, #ff71ce 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        body.theme-vaporwave .main-title {
+            color: #ff71ce;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 
+                3px 3px 0px #01cdfe,
+                6px 6px 0px #05ffa1,
+                9px 9px 0px #b967ff;
+            animation: vaporwaveGlitch 4s infinite;
+            letter-spacing: 0.15em;
+        }
+
+        body.theme-vaporwave .subtitle {
+            color: #01cdfe;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 0px #ff71ce;
+        }
+
+        body.theme-vaporwave .bottom-item p {
+            color: #fffb96;
+            font-family: 'VT323', monospace;
+            text-shadow: 1px 1px 0px #b967ff;
+        }
+
+        body.theme-vaporwave .mouse-trail-star {
+            background: #ff71ce;
+            box-shadow: 0 0 20px #ff71ce, 0 0 40px #01cdfe;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+
+        body.theme-vaporwave .sidebar-item-descriptor {
+            font-family: 'VT323', monospace;
+            background: rgba(255, 113, 206, 0.9);
+            color: #000;
+            font-size: 1rem;
+        }
+
+        body.theme-vaporwave .icon:hover {
+            background: rgba(1, 205, 254, 0.2);
+            box-shadow: 0 0 20px #01cdfe;
+        }
+
+        body.theme-vaporwave .star {
+            background: linear-gradient(45deg, #ff71ce, #01cdfe);
+            animation: vaporwaveTwinkle 2s infinite;
+        }
+
+        @keyframes vaporwaveGlitch {
+            0%, 90%, 100% { 
+                transform: translateX(0) skew(0deg);
+                text-shadow: 
+                    3px 3px 0px #01cdfe,
+                    6px 6px 0px #05ffa1,
+                    9px 9px 0px #b967ff;
+            }
+            91% { 
+                transform: translateX(-5px) skew(-2deg);
+                text-shadow: 
+                    -3px 3px 0px #01cdfe,
+                    6px -6px 0px #05ffa1,
+                    -9px 9px 0px #b967ff;
+            }
+            93% { 
+                transform: translateX(5px) skew(2deg);
+                text-shadow: 
+                    3px -3px 0px #01cdfe,
+                    -6px 6px 0px #05ffa1,
+                    9px -9px 0px #b967ff;
+            }
+            95% { 
+                transform: translateX(-3px) skew(-1deg);
+            }
+        }
+
+        @keyframes vaporwaveTwinkle {
+            0%, 100% { 
+                opacity: 0.4; 
+                transform: scale(1) rotate(0deg);
+                box-shadow: 0 0 10px #ff71ce;
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.5) rotate(180deg);
+                box-shadow: 0 0 20px #01cdfe, 0 0 30px #ff71ce;
+            }
+        }
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -1123,7 +1218,7 @@
 
         // Theme management
         let currentTheme = 'normal';
-        const themes = ['normal', 'black', 'green', 'red', 'rambo', 'ocean', 'sunset', 'neon', 'matrix', 'fire', 'ice', 'galaxy', 'gold', 'turbo', 'midnight', 'cyan', 'lime', 'pink', 'orange', 'purple', 'aurora', 'toxic', 'electric', 'magma', 'arctic', 'crimson', 'emerald', 'sapphire', 'ruby', 'amber'];
+        const themes = ['normal', 'black', 'green', 'red', 'rambo', 'ocean', 'sunset', 'neon', 'matrix', 'fire', 'ice', 'galaxy', 'gold', 'turbo', 'midnight', 'cyan', 'lime', 'pink', 'orange', 'purple', 'aurora', 'toxic', 'electric', 'magma', 'arctic', 'crimson', 'emerald', 'sapphire', 'ruby', 'amber', 'vaporwave'];
 
         const themeColors = {
             normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
@@ -1155,7 +1250,8 @@
             emerald: { particle: 'rgba(0, 255, 153, 0.7)', line: '0, 255, 153', speed: 1.4 },
             sapphire: { particle: 'rgba(51, 153, 255, 0.7)', line: '51, 153, 255', speed: 1.3 },
             ruby: { particle: 'rgba(255, 0, 102, 0.8)', line: '255, 0, 102', speed: 5 },
-            amber: { particle: 'rgba(255, 170, 0, 0.7)', line: '255, 170, 0', speed: 1.1 }
+            amber: { particle: 'rgba(255, 170, 0, 0.7)', line: '255, 170, 0', speed: 1.1 },
+            vaporwave: { particle: 'rgba(255, 113, 206, 0.9)', line: '1, 205, 254', speed: 4 }
         };
 
         // Particle system with mouse interaction
@@ -1224,12 +1320,12 @@
                     const dy = mouse.y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const currentConnectionDistance = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby'].includes(currentTheme) ? 250 : connectionDistance;
+                    const currentConnectionDistance = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'].includes(currentTheme) ? 250 : connectionDistance;
                     if (distance < currentConnectionDistance) {
                         const opacity = 1 - (distance / currentConnectionDistance);
-                        const lineOpacity = ['rambo', 'fire', 'turbo', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby'].includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
+                        const lineOpacity = ['rambo', 'fire', 'turbo', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'].includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = ['rambo', 'fire', 'turbo', 'electric', 'toxic'].includes(currentTheme) ? 2 : 1;
+                        ctx.lineWidth = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 2 : 1;
                         ctx.beginPath();
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(mouse.x, mouse.y);
@@ -1245,12 +1341,12 @@
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const particleConnectionDistance = ['rambo', 'fire', 'turbo', 'electric', 'toxic'].includes(currentTheme) ? 150 : 100;
+                    const particleConnectionDistance = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 150 : 100;
                     if (distance < particleConnectionDistance) {
                         const opacity = 1 - (distance / particleConnectionDistance);
-                        const lineOpacity = ['rambo', 'fire', 'turbo', 'electric', 'toxic'].includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
+                        const lineOpacity = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = ['rambo', 'fire', 'turbo', 'electric', 'toxic'].includes(currentTheme) ? 1.5 : 0.5;
+                        ctx.lineWidth = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 1.5 : 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -1273,7 +1369,7 @@
             // Throttle the trail creation
             if (mouseTrailTimeout) return;
 
-            const throttleTime = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby'].includes(currentTheme) ? 20 : 50;
+            const throttleTime = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'].includes(currentTheme) ? 20 : 50;
             mouseTrailTimeout = setTimeout(function() {
                 mouseTrailTimeout = null;
             }, throttleTime);
@@ -1287,7 +1383,7 @@
             document.body.appendChild(star);
 
             // Remove star after animation completes
-            const removeTime = ['rambo', 'fire', 'turbo', 'electric', 'toxic'].includes(currentTheme) ? 500 : 1500;
+            const removeTime = ['rambo', 'fire', 'turbo', 'electric', 'toxic', 'vaporwave'].includes(currentTheme) ? 500 : 1500;
             setTimeout(function() {
                 star.remove();
             }, removeTime);
@@ -1383,6 +1479,15 @@
             }
         }
 
+        // Open Info/Repository page function
+        function openInfoPage() {
+            const infoUrl = 'https://github.com/artinRahm/artinrahm.github.io/tree/main';
+            const newWindow = window.open(infoUrl, '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = infoUrl;
+            }
+        }
+
         // Change theme function
         function changeTheme() {
             const currentIndex = themes.indexOf(currentTheme);
@@ -1400,7 +1505,7 @@
             }
 
             // Add more particles for fast themes
-            const fastThemes = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby'];
+            const fastThemes = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'];
             if (fastThemes.includes(nextTheme) && !fastThemes.includes(currentTheme)) {
                 const extraParticles = nextTheme === 'turbo' || nextTheme === 'electric' ? 150 : 120;
                 for (let i = 0; i < extraParticles; i++) {
@@ -1431,7 +1536,7 @@
                     document.body.classList.add('theme-' + currentTheme);
                 }
                 // Add extra particles for fast themes
-                const fastThemes = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby'];
+                const fastThemes = ['rambo', 'fire', 'turbo', 'neon', 'cyan', 'lime', 'pink', 'orange', 'purple', 'toxic', 'electric', 'magma', 'crimson', 'ruby', 'vaporwave'];
                 if (fastThemes.includes(currentTheme)) {
                     const extraParticles = currentTheme === 'turbo' || currentTheme === 'electric' ? 150 : 120;
                     for (let i = 0; i < extraParticles; i++) {
@@ -1535,6 +1640,15 @@
                     openAppsPage();
                 });
             }
+
+            // Info button
+            const infoLinks = document.querySelectorAll('[data-target="/info"]');
+            infoLinks.forEach(function(infoLink) {
+                infoLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openInfoPage();
+                });
+            });
 
             // Update time every second
             setInterval(updateTime, 1000);
