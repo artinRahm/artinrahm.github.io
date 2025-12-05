@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Righteous&family=Iceland&family=Audiowide&family=Black+Ops+One&family=Creepster&family=Monoton&family=Russo+One&family=Bungee+Shade&family=Fredoka+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Righteous&family=Iceland&family=Audiowide&family=Black+Ops+One&family=Creepster&family=Monoton&family=Russo+One&family=Bungee+Shade&family=Fredoka+One&family=Rajdhani:wght@300;400;500;600;700&family=Teko:wght@300;400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -114,6 +114,420 @@
             animation: twinkle 0.5s infinite;
         }
 
+        /* CYBERPUNK 2077 AUTHENTIC THEME */
+        body.theme-cyberpunk2077 {
+            background: linear-gradient(135deg, #000000 0%, #0a0a0f 20%, #1a1a2e 40%, #0a0a0f 60%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        body.theme-cyberpunk2077::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(252, 231, 24, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(252, 231, 24, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-cyberpunk2077 .main-title {
+            color: #fce718;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-shadow:
+                0 0 5px #fce718,
+                0 0 10px #fce718,
+                0 0 20px #fce718,
+                0 0 40px #00f0ff,
+                2px 2px 0px #00f0ff,
+                4px 4px 0px #ff003c,
+                -2px -2px 0px #00f0ff;
+            animation: cyberpunk2077Glitch 5s infinite;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        body.theme-cyberpunk2077 .subtitle {
+            color: #00f0ff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            text-shadow:
+                0 0 10px #00f0ff,
+                0 0 20px #00f0ff,
+                2px 2px 0px #fce718;
+            letter-spacing: 0.1em;
+        }
+        body.theme-cyberpunk2077 .bottom-item p {
+            color: #fce718;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            text-shadow: 0 0 8px #fce718;
+        }
+        body.theme-cyberpunk2077 .online-count {
+            color: #00f0ff;
+            text-shadow: 0 0 10px #00f0ff;
+        }
+        body.theme-cyberpunk2077 .mouse-trail-star {
+            background: #fce718;
+            box-shadow: 0 0 20px #fce718, 0 0 40px #00f0ff;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes cyberpunk2077Glitch {
+            0%, 90%, 100% {
+                transform: translateX(0) skew(0deg);
+                text-shadow:
+                    0 0 5px #fce718,
+                    0 0 10px #fce718,
+                    0 0 20px #fce718,
+                    0 0 40px #00f0ff,
+                    2px 2px 0px #00f0ff,
+                    4px 4px 0px #ff003c,
+                    -2px -2px 0px #00f0ff;
+            }
+            91% {
+                transform: translateX(-3px) skew(-1deg);
+                text-shadow:
+                    0 0 5px #fce718,
+                    -5px 0 10px #ff003c,
+                    5px 0 10px #00f0ff;
+            }
+            92% {
+                transform: translateX(3px) skew(1deg);
+                text-shadow:
+                    0 0 5px #fce718,
+                    5px 0 10px #ff003c,
+                    -5px 0 10px #00f0ff;
+            }
+            94% {
+                transform: translateX(-2px) skew(-0.5deg);
+            }
+        }
+
+        /* MINECRAFT THEME */
+        body.theme-minecraft {
+            background: linear-gradient(135deg, #1a4d1a 0%, #2d7a2d 25%, #4db84d 50%, #2d7a2d 75%, #1a4d1a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+            image-rendering: pixelated;
+        }
+        body.theme-minecraft::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 16px 16px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-minecraft .main-title {
+            color: #ffffff;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow:
+                4px 4px 0px #3f3f3f,
+                0 0 20px rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+            font-size: 3.5rem;
+            image-rendering: pixelated;
+        }
+        body.theme-minecraft .subtitle {
+            color: #ffff55;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            text-shadow: 3px 3px 0px #555500;
+        }
+        body.theme-minecraft .bottom-item p {
+            color: #ffffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            text-shadow: 2px 2px 0px #3f3f3f;
+        }
+        body.theme-minecraft .mouse-trail-star {
+            background: #8b4513;
+            box-shadow: 0 0 10px #8b4513;
+            animation: fadeOutStar 0.3s ease-out forwards;
+            image-rendering: pixelated;
+        }
+
+        /* DOOM THEME */
+        body.theme-doom {
+            background: linear-gradient(135deg, #330000 0%, #660000 25%, #990000 50%, #660000 75%, #330000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 4s ease infinite;
+        }
+        body.theme-doom .main-title {
+            color: #ff0000;
+            font-family: 'Black Ops One', cursive;
+            text-shadow:
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff6600,
+                5px 5px 0px #000000,
+                10px 10px 0px #330000;
+            animation: doomShake 0.1s infinite;
+            letter-spacing: 0.2em;
+            transform-origin: center;
+        }
+        body.theme-doom .subtitle {
+            color: #ff6600;
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.2rem;
+            text-shadow:
+                0 0 15px #ff6600,
+                3px 3px 0px #000000;
+        }
+        body.theme-doom .bottom-item p {
+            color: #ff0000;
+            font-family: 'Black Ops One', cursive;
+            font-size: 0.8rem;
+            text-shadow: 0 0 10px #ff0000, 2px 2px 0px #000000;
+        }
+        body.theme-doom .mouse-trail-star {
+            background: #ff0000;
+            box-shadow: 0 0 30px #ff0000, 0 0 60px #ff6600;
+            animation: fadeOutStar 0.2s ease-out forwards;
+        }
+        @keyframes doomShake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+            50% { transform: translate(1px, -1px) rotate(0.5deg); }
+            75% { transform: translate(-1px, -1px) rotate(-0.3deg); }
+        }
+
+        /* PORTAL THEME */
+        body.theme-portal {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+        body.theme-portal .main-title {
+            color: #ff8800;
+            font-family: 'Teko', sans-serif;
+            font-weight: 700;
+            text-shadow:
+                0 0 20px #ff8800,
+                0 0 40px #ff8800,
+                0 0 60px #0099ff,
+                3px 3px 0px #0099ff;
+            animation: portalPulse 2s infinite alternate;
+            letter-spacing: 0.1em;
+        }
+        body.theme-portal .subtitle {
+            color: #0099ff;
+            font-family: 'Teko', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            text-shadow:
+                0 0 20px #0099ff,
+                0 0 40px #0099ff,
+                2px 2px 0px #ff8800;
+        }
+        body.theme-portal .bottom-item p {
+            color: #ffffff;
+            font-family: 'Teko', sans-serif;
+            font-weight: 500;
+            text-shadow: 0 0 10px #ffffff;
+        }
+        body.theme-portal .mouse-trail-star {
+            background: linear-gradient(90deg, #ff8800 50%, #0099ff 50%);
+            box-shadow: 0 0 25px #ff8800, 0 0 50px #0099ff;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes portalPulse {
+            0% {
+                color: #ff8800;
+                text-shadow:
+                    0 0 20px #ff8800,
+                    0 0 40px #ff8800,
+                    0 0 60px #0099ff,
+                    3px 3px 0px #0099ff;
+            }
+            100% {
+                color: #0099ff;
+                text-shadow:
+                    0 0 20px #0099ff,
+                    0 0 40px #0099ff,
+                    0 0 60px #ff8800,
+                    3px 3px 0px #ff8800;
+            }
+        }
+
+        /* ZELDA THEME */
+        body.theme-zelda {
+            background: linear-gradient(135deg, #0d2b0d 0%, #1a5c1a 25%, #2d8a2d 50%, #1a5c1a 75%, #0d2b0d 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        body.theme-zelda .main-title {
+            color: #ffd700;
+            font-family: 'Righteous', cursive;
+            text-shadow:
+                0 0 15px #ffd700,
+                0 0 30px #ffd700,
+                0 0 45px #228b22,
+                3px 3px 0px #228b22,
+                6px 6px 0px #006400;
+            animation: zeldaFloat 3s ease-in-out infinite;
+            letter-spacing: 0.12em;
+        }
+        body.theme-zelda .subtitle {
+            color: #90ee90;
+            font-family: 'Righteous', cursive;
+            font-size: 1.3rem;
+            text-shadow:
+                0 0 15px #90ee90,
+                2px 2px 0px #228b22;
+        }
+        body.theme-zelda .bottom-item p {
+            color: #ffd700;
+            font-family: 'Righteous', cursive;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        body.theme-zelda .mouse-trail-star {
+            background: #ffd700;
+            box-shadow: 0 0 20px #ffd700, 0 0 40px #228b22;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+        @keyframes zeldaFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* PACMAN THEME */
+        body.theme-pacman {
+            background: linear-gradient(135deg, #000033 0%, #000066 25%, #0000cc 50%, #000066 75%, #000033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        body.theme-pacman::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle, #ffff00 2px, transparent 2px),
+                radial-gradient(circle, #ffff00 2px, transparent 2px);
+            background-size: 100px 100px;
+            background-position: 0 0, 50px 50px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-pacman .main-title {
+            color: #ffff00;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow:
+                4px 4px 0px #ff6600,
+                8px 8px 0px #ff0000,
+                0 0 20px #ffff00;
+            animation: pacmanBounce 0.6s infinite;
+            letter-spacing: 0.08em;
+            font-size: 4rem;
+        }
+        body.theme-pacman .subtitle {
+            color: #00ffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            text-shadow: 3px 3px 0px #ff00ff;
+        }
+        body.theme-pacman .bottom-item p {
+            color: #ffff00;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            text-shadow: 2px 2px 0px #ff6600;
+        }
+        body.theme-pacman .mouse-trail-star {
+            background: #ffff00;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffff00;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes pacmanBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* TRON THEME */
+        body.theme-tron {
+            background: linear-gradient(135deg, #000000 0%, #001a33 25%, #003366 50%, #001a33 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+        body.theme-tron::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, transparent 49%, #00ffff 49%, #00ffff 51%, transparent 51%),
+                linear-gradient(transparent 49%, #00ffff 49%, #00ffff 51%, transparent 51%);
+            background-size: 100px 100px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-tron .main-title {
+            color: #00ffff;
+            font-family: 'Audiowide', cursive;
+            text-shadow:
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff,
+                0 0 40px #0099ff,
+                0 5px 0px #0066cc;
+            animation: tronGlow 1.5s infinite alternate;
+            letter-spacing: 0.2em;
+        }
+        body.theme-tron .subtitle {
+            color: #0099ff;
+            font-family: 'Audiowide', cursive;
+            font-size: 1.3rem;
+            text-shadow:
+                0 0 15px #0099ff,
+                0 0 30px #0099ff;
+        }
+        body.theme-tron .bottom-item p {
+            color: #00ffff;
+            font-family: 'Audiowide', cursive;
+            text-shadow: 0 0 10px #00ffff;
+        }
+        body.theme-tron .mouse-trail-star {
+            background: #00ffff;
+            box-shadow: 0 0 30px #00ffff, 0 0 60px #0099ff;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes tronGlow {
+            0% {
+                text-shadow:
+                    0 0 10px #00ffff,
+                    0 0 20px #00ffff,
+                    0 0 30px #00ffff,
+                    0 0 40px #0099ff,
+                    0 5px 0px #0066cc;
+            }
+            100% {
+                text-shadow:
+                    0 0 20px #00ffff,
+                    0 0 40px #00ffff,
+                    0 0 60px #00ffff,
+                    0 0 80px #0099ff,
+                    0 5px 0px #0066cc;
+            }
+        }
+
         /* Cyberpunk theme - NEW CUSTOM */
         body.theme-cyberpunk {
             background: linear-gradient(135deg, #0a0015 0%, #1a0033 20%, #ff006e 40%, #ffbe0b 60%, #00f5ff 80%, #0a0015 100%);
@@ -215,10 +629,10 @@
             animation: fadeOutStar 0.4s ease-out forwards;
         }
         @keyframes synthwavePulse {
-            0%, 100% { 
+            0%, 100% {
                 text-shadow: 0 0 20px #ff0080, 0 0 40px #ff0080, 0 0 60px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
             }
-            50% { 
+            50% {
                 text-shadow: 0 0 30px #ff0080, 0 0 60px #ff0080, 0 0 80px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
             }
         }
@@ -326,10 +740,10 @@
             animation: fadeOutStar 0.3s ease-out forwards;
         }
         @keyframes neonCityFlash {
-            0% { 
+            0% {
                 text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #ffff00;
             }
-            100% { 
+            100% {
                 text-shadow: 0 0 20px #ff00cc, 0 0 40px #ff00cc, 0 0 60px #00ffff, 0 0 80px #00ffff, 0 0 100px #ffff00;
             }
         }
@@ -843,6 +1257,51 @@
     </div>
 
     <script>
+        // Sound Effects - Minecraft-style click sound
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let soundEnabled = true;
+
+        function playClickSound() {
+            if (!soundEnabled) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Minecraft click sound parameters
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.05);
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+
+            oscillator.type = 'square';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.05);
+        }
+
+        function playHoverSound() {
+            if (!soundEnabled) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Minecraft hover sound parameters
+            oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.03);
+
+            oscillator.type = 'sine';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.03);
+        }
+
         // Create stars/particles
         function createStars() {
             const starsContainer = document.querySelector('.stars');
@@ -860,9 +1319,14 @@
             }
         }
 
-        // Theme management
+        // Theme management - UPDATED WITH NEW THEMES
         let currentTheme = 'normal';
-        const themes = ['normal', 'black', 'green', 'red', 'rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'gothic', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+        const themes = [
+            'normal', 'black', 'green', 'red', 'rambo',
+            'cyberpunk2077', 'minecraft', 'doom', 'portal', 'zelda',
+            'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave',
+            'hacker', 'gothic', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'
+        ];
 
         const themeColors = {
             normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
@@ -870,6 +1334,13 @@
             green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144', speed: 1 },
             red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102', speed: 1 },
             rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 },
+            cyberpunk2077: { particle: 'rgba(252, 231, 24, 0.8)', line: '0, 240, 255', speed: 4 },
+            minecraft: { particle: 'rgba(139, 69, 19, 0.7)', line: '34, 139, 34', speed: 2 },
+            doom: { particle: 'rgba(255, 0, 0, 0.9)', line: '255, 102, 0', speed: 6 },
+            portal: { particle: 'rgba(255, 136, 0, 0.8)', line: '0, 153, 255', speed: 3 },
+            zelda: { particle: 'rgba(255, 215, 0, 0.7)', line: '34, 139, 34', speed: 2 },
+            pacman: { particle: 'rgba(255, 255, 0, 0.9)', line: '255, 102, 0', speed: 4 },
+            tron: { particle: 'rgba(0, 255, 255, 0.8)', line: '0, 255, 255', speed: 4 },
             cyberpunk: { particle: 'rgba(0, 245, 255, 0.8)', line: '0, 245, 255', speed: 4 },
             arcade: { particle: 'rgba(255, 255, 0, 0.9)', line: '255, 0, 255', speed: 5 },
             synthwave: { particle: 'rgba(255, 0, 128, 0.8)', line: '255, 0, 128', speed: 3 },
@@ -940,12 +1411,13 @@
                     const dy = mouse.y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const currentConnectionDistance = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'neoncity', 'retrowave', 'vaporwave'].includes(currentTheme) ? 250 : connectionDistance;
+                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'neoncity', 'retrowave', 'vaporwave'];
+                    const currentConnectionDistance = fastThemes.includes(currentTheme) ? 250 : connectionDistance;
                     if (distance < currentConnectionDistance) {
                         const opacity = 1 - (distance / currentConnectionDistance);
-                        const lineOpacity = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
+                        const lineOpacity = fastThemes.includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? 2 : 1;
+                        ctx.lineWidth = fastThemes.includes(currentTheme) ? 2 : 1;
                         ctx.beginPath();
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(mouse.x, mouse.y);
@@ -960,12 +1432,13 @@
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const particleConnectionDistance = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? 150 : 100;
+                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'];
+                    const particleConnectionDistance = fastThemes.includes(currentTheme) ? 150 : 100;
                     if (distance < particleConnectionDistance) {
                         const opacity = 1 - (distance / particleConnectionDistance);
-                        const lineOpacity = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
+                        const lineOpacity = fastThemes.includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
                         ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
-                        ctx.lineWidth = ['rambo', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'].includes(currentTheme) ? 1.5 : 0.5;
+                        ctx.lineWidth = fastThemes.includes(currentTheme) ? 1.5 : 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -986,7 +1459,8 @@
 
             if (mouseTrailTimeout) return;
 
-            const throttleTime = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'].includes(currentTheme) ? 20 : 50;
+            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+            const throttleTime = fastThemes.includes(currentTheme) ? 20 : 50;
             mouseTrailTimeout = setTimeout(function() {
                 mouseTrailTimeout = null;
             }, throttleTime);
@@ -998,7 +1472,7 @@
 
             document.body.appendChild(star);
 
-            const removeTime = ['rambo', 'cyberpunk', 'arcade', 'vaporwave'].includes(currentTheme) ? 500 : 1500;
+            const removeTime = ['rambo', 'cyberpunk2077', 'doom', 'cyberpunk', 'arcade', 'vaporwave'].includes(currentTheme) ? 500 : 1500;
             setTimeout(function() {
                 star.remove();
             }, removeTime);
@@ -1019,21 +1493,35 @@
             timeElement.textContent = displayHours + ':' + minutes + ':' + seconds + ' ' + ampm;
         }
 
-        // Update online count with animation
+        // Update online count with animation - ENHANCED
         function updateOnlineCount() {
             const onlineCountElement = document.querySelector('.online-count');
             if (!onlineCountElement) return;
 
             const baseCount = 1223;
-            const variation = Math.floor(Math.random() * 20) - 10;
+            const variation = Math.floor(Math.random() * 30) - 15;
             const newCount = baseCount + variation;
 
             onlineCountElement.classList.add('updating');
-            onlineCountElement.textContent = newCount;
 
-            setTimeout(function() {
-                onlineCountElement.classList.remove('updating');
-            }, 300);
+            // Add number counting animation
+            const oldCount = parseInt(onlineCountElement.textContent);
+            const diff = newCount - oldCount;
+            const steps = 10;
+            const stepValue = diff / steps;
+            let currentStep = 0;
+
+            const countInterval = setInterval(function() {
+                currentStep++;
+                if (currentStep <= steps) {
+                    const displayCount = Math.round(oldCount + (stepValue * currentStep));
+                    onlineCountElement.textContent = displayCount;
+                } else {
+                    clearInterval(countInterval);
+                    onlineCountElement.textContent = newCount;
+                    onlineCountElement.classList.remove('updating');
+                }
+            }, 30);
         }
 
         // Show theme indicator
@@ -1107,6 +1595,8 @@
         }
 
         function changeTheme() {
+            playClickSound(); // Play sound when changing theme
+
             const currentIndex = themes.indexOf(currentTheme);
             const nextIndex = (currentIndex + 1) % themes.length;
             const nextTheme = themes[nextIndex];
@@ -1119,9 +1609,9 @@
                 document.body.classList.add('theme-' + nextTheme);
             }
 
-            const fastThemes = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
             if (fastThemes.includes(nextTheme) && !fastThemes.includes(currentTheme)) {
-                const extraParticles = nextTheme === 'arcade' || nextTheme === 'vaporwave' ? 150 : 120;
+                const extraParticles = ['arcade', 'doom', 'vaporwave'].includes(nextTheme) ? 150 : 120;
                 for (let i = 0; i < extraParticles; i++) {
                     particles.push(new Particle());
                 }
@@ -1142,9 +1632,9 @@
                 if (currentTheme !== 'normal') {
                     document.body.classList.add('theme-' + currentTheme);
                 }
-                const fastThemes = ['rambo', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+                const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
                 if (fastThemes.includes(currentTheme)) {
-                    const extraParticles = currentTheme === 'arcade' || currentTheme === 'vaporwave' ? 150 : 120;
+                    const extraParticles = ['arcade', 'doom', 'vaporwave'].includes(currentTheme) ? 150 : 120;
                     for (let i = 0; i < extraParticles; i++) {
                         particles.push(new Particle());
                     }
@@ -1152,16 +1642,26 @@
             }
         }
 
+        // Add hover sound effects to all interactive elements
+        function addHoverSounds() {
+            const interactiveElements = document.querySelectorAll('.icon, .sidebar-item a, .bottom-item');
+            interactiveElements.forEach(function(element) {
+                element.addEventListener('mouseenter', playHoverSound);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             loadTheme();
             createStars();
             updateTime();
             updateOnlineCount();
+            addHoverSounds(); // Add hover sounds to elements
 
             const gamesLink = document.getElementById('games-link');
             if (gamesLink) {
                 gamesLink.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     openGamesPage();
                 });
             }
@@ -1170,6 +1670,7 @@
             if (centerGameIcon) {
                 centerGameIcon.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     openGamesPage();
                 });
             }
@@ -1178,6 +1679,7 @@
             if (userIcon) {
                 userIcon.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     openSteamProfile();
                 });
             }
@@ -1186,6 +1688,7 @@
             if (discordIcon) {
                 discordIcon.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     openDiscord();
                 });
             }
@@ -1194,6 +1697,7 @@
             if (openBlankBtn) {
                 openBlankBtn.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
                 });
             }
@@ -1202,6 +1706,7 @@
             if (fullscreenBtn) {
                 fullscreenBtn.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
 
                     if (!document.fullscreenElement) {
                         document.documentElement.requestFullscreen().catch(function(err) {
@@ -1217,6 +1722,7 @@
             if (userProfileLink) {
                 userProfileLink.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     openGitHubProfile();
                 });
             }
@@ -1225,7 +1731,7 @@
             if (settingsLink) {
                 settingsLink.addEventListener('click', function(e) {
                     e.preventDefault();
-                    changeTheme();
+                    changeTheme(); // Sound is played inside changeTheme()
                 });
             }
 
@@ -1233,6 +1739,7 @@
             if (appsLink) {
                 appsLink.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     openAppsPage();
                 });
             }
@@ -1241,6 +1748,7 @@
             infoLinks.forEach(function(infoLink) {
                 infoLink.addEventListener('click', function(e) {
                     e.preventDefault();
+                    playClickSound();
                     openInfoPage();
                 });
             });
