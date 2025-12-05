@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -763,7 +762,7 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
 
-        mobile-warning {
+        .mobile-warning {
             display: none;
             position: fixed;
             top: 50%;
@@ -776,17 +775,17 @@
             border-radius: 10px;
         }
 
-        mobile-warning .title {
+        .mobile-warning .title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             text-transform: lowercase;
         }
 
         @media (max-width: 768px) {
-            mobile-warning {
+            .mobile-warning {
                 display: block;
             }
-            sidebar, .main-content, #bottom-menu {
+            .sidebar, .main-content, #bottom-menu {
                 display: none;
             }
         }
@@ -844,7 +843,7 @@
             filter: brightness(0) invert(1);
         }
 
-        sidebar {
+        .sidebar {
             position: fixed;
             right: 0;
             top: 0;
@@ -926,7 +925,7 @@
             color: rgba(235, 218, 244, 0.9);
         }
 
-        loading-game {
+        .loading-game {
             display: none;
             position: fixed;
             top: 50%;
@@ -939,18 +938,18 @@
             border-radius: 15px;
         }
 
-        loading-game.active {
+        .loading-game.active {
             display: block;
         }
 
-        loading-game .title {
+        .loading-game .title {
             font-size: 2rem;
             margin-bottom: 1rem;
             text-transform: lowercase;
             color: #ebdaf4;
         }
 
-        loading-game p {
+        .loading-game p {
             color: rgba(235, 218, 244, 0.8);
         }
 
@@ -997,15 +996,15 @@
     </style>
 </head>
 <body>
-    <mobile-warning>
+    <div class="mobile-warning">
         <h1 class="title">your device is not supported!</h1>
         <p>please rotate your screen for the best experience.</p>
-    </mobile-warning>
+    </div>
 
-    <loading-game>
+    <div class="loading-game">
         <h1 class="title">we are loading your game!</h1>
         <p>please allow us to fetch the data first, this should only take a second.</p>
-    </loading-game>
+    </div>
 
     <div class="theme-indicator" id="themeIndicator"></div>
 
@@ -1029,7 +1028,7 @@
         </div>
     </div>
 
-    <sidebar>
+    <nav class="sidebar">
         <div class="sidebar-item">
             <a href="#" data-target="/home">
                 <img src="https://ext.same-assets.com/3317140723/762381749.svg" alt="Home" width="24" height="24">
@@ -1084,7 +1083,7 @@
             </a>
             <div class="sidebar-item-descriptor">information</div>
         </div>
-    </sidebar>
+    </nav>
 
     <div id="bottom-menu">
         <div class="bottom-item">
@@ -1334,7 +1333,7 @@
 
         // Open games page function
         function openGamesPage() {
-            const loadingGame = document.querySelector('loading-game');
+            const loadingGame = document.querySelector('.loading-game');
             if (loadingGame) {
                 loadingGame.classList.add('active');
                 setTimeout(function() {
