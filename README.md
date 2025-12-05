@@ -1,4 +1,5 @@
-12/5/25
+12/5/25 thanks to artin,xen,lecron, from the clover team thank you guys for the help in making this website we are really happy on what we do we are just teens making a fun website 
+to have fun in school this was never made for braking school rules this is a project that we are making we hope you guys are happy and enjoy the new update <3
 # Clover Website Update
 
 I recently updated my website **Clover** with a new navigation change.  
