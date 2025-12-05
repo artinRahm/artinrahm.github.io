@@ -1,3 +1,24 @@
+12/5/25
+# Clover Website Update
+
+I recently updated my website **Clover** with a new navigation change.  
+Previously, clicking the **Apps** icon opened the apps section inside the Clover site.  
+Now, the **Apps** icon redirects you to my new website for a smoother and more organized experience.
+
+## 🔧 What Changed
+- Updated the Apps icon link
+- Added redirect to my new website
+- Cleaned up navigation so users can easily find all apps and tools
+
+## 🚀 Why the Change?
+I moved all apps to a dedicated website to keep Clover lightweight and easier to maintain, while giving the apps their own space to grow.
+
+## 🌐 Try It Out
+Visit Clover and click the **Apps** icon to see the new redirect in action!
+
+
+12/4/25
+
 Clover - Multi-Theme Landing Page
 A beautiful, animated landing page with 30 different themes and particle effects.
 
