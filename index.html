@@ -734,7 +734,7 @@
         body.theme-vaporwave .main-title {
             color: #ff71ce;
             font-family: 'Orbitron', sans-serif;
-            text-shadow: 
+            text-shadow:
                 3px 3px 0px #01cdfe,
                 6px 6px 0px #05ffa1,
                 9px 9px 0px #b967ff;
@@ -779,40 +779,40 @@
         }
 
         @keyframes vaporwaveGlitch {
-            0%, 90%, 100% { 
+            0%, 90%, 100% {
                 transform: translateX(0) skew(0deg);
-                text-shadow: 
+                text-shadow:
                     3px 3px 0px #01cdfe,
                     6px 6px 0px #05ffa1,
                     9px 9px 0px #b967ff;
             }
-            91% { 
+            91% {
                 transform: translateX(-5px) skew(-2deg);
-                text-shadow: 
+                text-shadow:
                     -3px 3px 0px #01cdfe,
                     6px -6px 0px #05ffa1,
                     -9px 9px 0px #b967ff;
             }
-            93% { 
+            93% {
                 transform: translateX(5px) skew(2deg);
-                text-shadow: 
+                text-shadow:
                     3px -3px 0px #01cdfe,
                     -6px 6px 0px #05ffa1,
                     9px -9px 0px #b967ff;
             }
-            95% { 
+            95% {
                 transform: translateX(-3px) skew(-1deg);
             }
         }
 
         @keyframes vaporwaveTwinkle {
-            0%, 100% { 
-                opacity: 0.4; 
+            0%, 100% {
+                opacity: 0.4;
                 transform: scale(1) rotate(0deg);
                 box-shadow: 0 0 10px #ff71ce;
             }
-            50% { 
-                opacity: 1; 
+            50% {
+                opacity: 1;
                 transform: scale(1.5) rotate(180deg);
                 box-shadow: 0 0 20px #01cdfe, 0 0 30px #ff71ce;
             }
@@ -1419,7 +1419,9 @@
             const indicator = document.getElementById('themeIndicator');
             if (!indicator) return;
 
-            indicator.textContent = 'theme: ' + themeName;
+            const currentIndex = themes.indexOf(themeName) + 1;
+            const totalThemes = themes.length;
+            indicator.textContent = 'theme: ' + themeName + ' (' + currentIndex + '/' + totalThemes + ')';
             indicator.classList.add('show');
 
             setTimeout(function() {
