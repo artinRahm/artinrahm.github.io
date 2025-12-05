@@ -828,6 +828,111 @@
             }
         }
 
+        /* GRID THEME - Clean minimal design */
+        body.theme-grid {
+            background: #000000;
+            position: relative;
+        }
+        body.theme-grid::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 1;
+            animation: gridMove 20s linear infinite;
+        }
+        body.theme-grid::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+        body.theme-grid .main-title {
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                2px 2px 0px rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            animation: gridTitlePulse 3s ease-in-out infinite;
+        }
+        body.theme-grid .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.15em;
+        }
+        body.theme-grid .bottom-item p {
+            color: rgba(255, 255, 255, 0.85);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 400;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        body.theme-grid .sidebar {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        body.theme-grid #bottom-menu {
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        body.theme-grid .sidebar-item a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        body.theme-grid .icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+        body.theme-grid .mouse-trail-star {
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        body.theme-grid .theme-indicator {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+        @keyframes gridTitlePulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4),
+                    2px 2px 0px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                text-shadow:
+                    0 0 20px rgba(255, 255, 255, 1),
+                    0 0 40px rgba(255, 255, 255, 0.8),
+                    0 0 60px rgba(255, 255, 255, 0.6),
+                    2px 2px 0px rgba(255, 255, 255, 0.3);
+            }
+        }
+
         /* Vaporwave theme */
         body.theme-vaporwave {
             background: linear-gradient(135deg, #ff71ce 0%, #01cdfe 20%, #05ffa1 40%, #b967ff 60%, #fffb96 80%, #ff71ce 100%);
@@ -1324,7 +1429,7 @@
         const themes = [
             'normal', 'black', 'green', 'red', 'rambo',
             'cyberpunk2077', 'minecraft', 'doom', 'portal', 'zelda',
-            'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave',
+            'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave',
             'hacker', 'gothic', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'
         ];
 
@@ -1341,6 +1446,7 @@
             zelda: { particle: 'rgba(255, 215, 0, 0.7)', line: '34, 139, 34', speed: 2 },
             pacman: { particle: 'rgba(255, 255, 0, 0.9)', line: '255, 102, 0', speed: 4 },
             tron: { particle: 'rgba(0, 255, 255, 0.8)', line: '0, 255, 255', speed: 4 },
+            grid: { particle: 'rgba(255, 255, 255, 0.8)', line: '255, 255, 255', speed: 2 },
             cyberpunk: { particle: 'rgba(0, 245, 255, 0.8)', line: '0, 245, 255', speed: 4 },
             arcade: { particle: 'rgba(255, 255, 0, 0.9)', line: '255, 0, 255', speed: 5 },
             synthwave: { particle: 'rgba(255, 0, 128, 0.8)', line: '255, 0, 128', speed: 3 },
@@ -1411,7 +1517,7 @@
                     const dy = mouse.y - particle.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'neoncity', 'retrowave', 'vaporwave'];
+                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'neoncity', 'retrowave', 'vaporwave'];
                     const currentConnectionDistance = fastThemes.includes(currentTheme) ? 250 : connectionDistance;
                     if (distance < currentConnectionDistance) {
                         const opacity = 1 - (distance / currentConnectionDistance);
@@ -1432,7 +1538,7 @@
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'];
+                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'];
                     const particleConnectionDistance = fastThemes.includes(currentTheme) ? 150 : 100;
                     if (distance < particleConnectionDistance) {
                         const opacity = 1 - (distance / particleConnectionDistance);
@@ -1459,7 +1565,7 @@
 
             if (mouseTrailTimeout) return;
 
-            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
             const throttleTime = fastThemes.includes(currentTheme) ? 20 : 50;
             mouseTrailTimeout = setTimeout(function() {
                 mouseTrailTimeout = null;
@@ -1609,7 +1715,7 @@
                 document.body.classList.add('theme-' + nextTheme);
             }
 
-            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
             if (fastThemes.includes(nextTheme) && !fastThemes.includes(currentTheme)) {
                 const extraParticles = ['arcade', 'doom', 'vaporwave'].includes(nextTheme) ? 150 : 120;
                 for (let i = 0; i < extraParticles; i++) {
@@ -1632,7 +1738,7 @@
                 if (currentTheme !== 'normal') {
                     document.body.classList.add('theme-' + currentTheme);
                 }
-                const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+                const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
                 if (fastThemes.includes(currentTheme)) {
                     const extraParticles = ['arcade', 'doom', 'vaporwave'].includes(currentTheme) ? 150 : 120;
                     for (let i = 0; i < extraParticles; i++) {
