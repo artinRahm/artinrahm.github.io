@@ -5,6 +5,52 @@ to have fun in school, this was never made for breaking school rules. This is a 
 # Clover Website Update
 
 
+
+the theames in order 
+normal
+
+black
+
+green
+
+red
+
+rambo
+
+cyberpunk2077
+
+minecraft
+
+doom
+
+portal
+
+zelda
+
+pacman
+
+tron
+
+grid
+
+cyberpunk
+
+arcade
+
+synthwave
+
+hacker
+
+gothic
+
+neoncity
+
+retrowave
+
+cosmic
+
+vaporwave
+
 time made 3:03 pm 12/5/25
 ⛏️ Theme Update Patch Notes
 📦 What Happened?
