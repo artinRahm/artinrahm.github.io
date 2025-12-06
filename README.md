@@ -1,3 +1,7 @@
+
+to any dev looking these are all webports!
+that aere public
+
 12/5/25
 thanks to artin,xen,lecron,
 From the Clover team, thank you, guys, for the help in making this website. We are really happy with what we do, we are just teens making a fun website 
