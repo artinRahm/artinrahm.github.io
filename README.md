@@ -1,6 +1,6 @@
 
 to any dev looking these are all webports!
-that aere public
+that are public
 
 12/5/25
 thanks to artin,xen,lecron,
